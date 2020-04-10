@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    tools:showIn="navigation_view">
+
+    <group android:checkableBehavior="single">
+        <item
+            android:id="@+id/nav_sales"
+            android:icon="@drawable/ic_trending_sales_black_24dp"
+            android:title="@string/menu_sales" />
+        <item
+            android:id="@+id/nav_purchase"
+            android:icon="@drawable/ic_local_grocery_store_black_24dp"
+            android:title="@string/menu_purchase" />
+        <item
+            android:id="@+id/nav_Expenses"
+            android:icon="@drawable/ic_receipt_black_24dp"
+            android:title="@string/menu_expenses" />
+        <item
+            android:id="@+id/nav_stock"
+            android:icon="@drawable/ic_stock_black_24dp"
+            android:title="@string/menu_stock" />
+        <item
+            android:id="@+id/nav_stores"
+            android:icon="@drawable/ic_store_black_24dp"
+            android:title="@string/menu_stores" />
+        <item
+            android:id="@+id/nav_hsn"
+            android:icon="@drawable/ic_search_hsn_black_24dp"
+            android:title="@string/menu_hsn" />
+        <item
+            android:id="@+id/nav_reports"
+            android:icon="@drawable/ic_pie_chart_black_24dp"
+            android:title="@string/menu_reports" />
+        <item
+            android:id="@+id/nav_staffs"
+            android:icon="@drawable/ic_staff_black_24dp"
+            android:title="@string/menu_staff" />
+    </group>
+</menu>

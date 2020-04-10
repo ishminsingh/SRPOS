@@ -1,0 +1,40 @@
+{
+  "project_info": {
+    "project_number": "501200673755",
+    "firebase_url": "https://srpos-206e8.firebaseio.com",
+    "project_id": "srpos-206e8",
+    "storage_bucket": "srpos-206e8.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:501200673755:android:5ddfdbcb422f4266bde5fe",
+        "android_client_info": {
+          "package_name": "dev.ishmin.srpos"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "501200673755-im36mp6t5c46o3hn0pk1ed7ke8bjq3pe.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCh50Y0m5r2HpTGra6-d1I5-Pa-wzVAcGE"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "501200673755-im36mp6t5c46o3hn0pk1ed7ke8bjq3pe.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

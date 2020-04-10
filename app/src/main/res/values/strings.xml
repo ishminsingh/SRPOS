@@ -1,0 +1,48 @@
+<resources>
+    <string name="app_name">SRPOS</string>
+    <string name="navigation_drawer_open">Open navigation drawer</string>
+    <string name="navigation_drawer_close">Close navigation drawer</string>
+    <string name="nav_header_title">Android Studio</string>
+    <string name="nav_header_subtitle">android.studio@android.com</string>
+    <string name="nav_header_desc">Navigation header</string>
+    <string name="action_settings">Settings</string>
+
+    <string name="menu_home">Home</string>
+    <string name="menu_gallery">Gallery</string>
+    <string name="menu_slideshow">Slideshow</string>
+
+    <string name="home_second">Home Second</string>
+
+    <string name="title_activity_splash">SplashActivity</string>
+
+    <string name="logo">logo</string>
+    <string name="signIn">Sign in</string>
+    <string name="prompt_email">Email</string>
+    <string name="prompt_password">Password</string>
+    <string name="action_sign_in">Sign in or register</string>
+    <string name="action_sign_in_short">Sign in</string>
+    <string name="welcome">"Welcome !"</string>
+    <string name="invalid_username">Not a valid username</string>
+    <string name="invalid_password">Password must be >5 characters</string>
+    <string name="login_failed">"Login failed"</string>
+    <string name="contTxt">Continue</string>
+    <string name="mobilenum">10 digit mobile number</string>
+    <string name="phnumTxt">Enter your phone number to proceed</string>
+    <string name="txt01">Verify Details</string>
+    <string name="txt02">OTP sent to your phone number</string>
+    <string name="otp">OTP</string>
+    <string name="loginBtnTxt">Verify and Proceed</string>
+
+    <string name="menu_sales">Sales</string>
+    <string name="menu_purchase">Purchase</string>
+    <string name="menu_expenses">Expenses</string>
+    <string name="menu_stock">Stock</string>
+    <string name="menu_stores">Stores</string>
+    <string name="menu_hsn">HSN</string>
+    <string name="menu_reports">Reports</string>
+    <string name="menu_staff">Staff</string>
+    <string name="menu_customer">Customers</string>
+    <string name="menu_supp">Suppliers</string>
+
+    <string name="action_signOut">Sign out</string>
+</resources>
