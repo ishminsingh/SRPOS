@@ -3,15 +3,83 @@ package dev.ishmin.srpos;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Intent;
+import android.os.AsyncTask;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.widget.EditText;
+import android.widget.Toast;
 
 import com.google.firebase.auth.FirebaseAuth;
+
+import java.io.BufferedReader;
+import java.io.InputStream;
+import java.io.InputStreamReader;
+import java.net.HttpURLConnection;
+import java.net.URL;
+
+import static org.apache.http.params.CoreConnectionPNames.CONNECTION_TIMEOUT;
 
 public class LoginActivity extends AppCompatActivity {
 
     private EditText mobileNum;
+    protected static String sessioncode="";
+    String mobile;
+
+    public class session extends AsyncTask<String,Void,String>
+    {
+
+        public static final String REQUEST_METHOD = "GET";
+        public static final int READ_TIMEOUT = 15000;
+        public static final int CONNECTION_TIMEOUT = 15000;
+        @Override
+        protected String doInBackground(String... strings)
+        {
+            URL url ;
+            HttpURLConnection httpURLConnection=null;
+            String result ="";
+            String inputLine;
+
+            try{
+
+                url = new URL(strings[0]);
+                httpURLConnection=(HttpURLConnection) url.openConnection();
+                httpURLConnection.setRequestMethod(REQUEST_METHOD);
+                httpURLConnection.setReadTimeout(READ_TIMEOUT);
+                httpURLConnection.setConnectTimeout(CONNECTION_TIMEOUT);
+                httpURLConnection.connect();
+
+                InputStreamReader streamReader = new InputStreamReader(httpURLConnection.getInputStream());
+
+                BufferedReader reader = new BufferedReader(streamReader);
+                StringBuilder stringBuilder = new StringBuilder();
+
+                while ((inputLine = reader.readLine()) != null)
+                {
+                    stringBuilder.append(inputLine);
+                }
+                reader.close();
+                streamReader.close();
+
+                result = stringBuilder.toString();
+                return result;
+            }
+
+            catch (Exception e){
+                e.printStackTrace();
+                Log.i("async","Error in Async");
+                return "";
+
+            }
+        }
+
+        @Override
+        protected void onPostExecute(String s) {
+            super.onPostExecute(s);
+            Log.i("on post",s);
+        }
+    }
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -22,15 +90,36 @@ public class LoginActivity extends AppCompatActivity {
         findViewById(R.id.contBtn).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                String mobile = mobileNum.getText().toString().trim();
+                mobile = mobileNum.getText().toString().trim();
                 if (mobile.length() != 10) {
                     mobileNum.setError("Enter a valid Phone number");
                     mobileNum.requestFocus();
                     return;
                 }
-                Intent intent = new Intent(LoginActivity.this, VerifyotpActivity.class);
-                intent.putExtra("mobile", mobile);
-                startActivity(intent);
+
+               else {
+                    try {
+                        String myurl="http://smartretailpos.pe.hu/api/auth.php?action=getdata&cno="+mobile;
+                        session newsession = new session();
+                        sessioncode = newsession.execute(myurl).get();
+                        Log.i("basic",sessioncode);
+                    }
+                    catch (Exception e)
+                    {
+                        e.printStackTrace();
+                        Log.i("basic","failed");
+
+                    }
+                    if (sessioncode.length()>1)
+                    {
+                        Intent intent = new Intent(LoginActivity.this, VerifyotpActivity.class);
+                        intent.putExtra("mobile", mobile);
+                        startActivity(intent);
+                    }
+                    else {
+                        Toast.makeText(LoginActivity.this, "USER NOT REGISTETRED", Toast.LENGTH_SHORT).show();
+                    }
+                }
             }
         });
     }

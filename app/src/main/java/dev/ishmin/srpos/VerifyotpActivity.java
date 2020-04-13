@@ -5,8 +5,10 @@ import androidx.annotation.RequiresApi;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Intent;
+import android.os.AsyncTask;
 import android.os.Build;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.widget.EditText;
 import android.widget.Toast;
@@ -20,6 +22,10 @@ import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.PhoneAuthCredential;
 import com.google.firebase.auth.PhoneAuthProvider;
 
+import java.io.InputStream;
+import java.io.InputStreamReader;
+import java.net.HttpURLConnection;
+import java.net.URL;
 import java.util.Objects;
 import java.util.concurrent.TimeUnit;
 
@@ -28,6 +34,10 @@ public class VerifyotpActivity extends AppCompatActivity {
     private String verificationId;
     private FirebaseAuth mAuth;
     private EditText otp;
+    String mobile;
+
+
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -38,7 +48,7 @@ public class VerifyotpActivity extends AppCompatActivity {
         otp = findViewById(R.id.otp);
 
         Intent intent = getIntent();
-        String mobile = intent.getStringExtra("mobile");
+        mobile = intent.getStringExtra("mobile");
         sendVerificationCode(mobile);
 
         findViewById(R.id.loginBtn).setOnClickListener(new View.OnClickListener() {
@@ -70,12 +80,16 @@ public class VerifyotpActivity extends AppCompatActivity {
                     public void onComplete(@NonNull Task<AuthResult> task) {
                         if (task.isSuccessful()) {
                             //verification successful we will start the profile activity
-                            Intent intent = new Intent(VerifyotpActivity.this, MainActivity.class);
+
+                                Intent intent = new Intent(VerifyotpActivity.this, MainActivity.class);
                             intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
                             startActivity(intent);
+
+
                         } else {
                             //verification unsuccessful.. display an error message
                             Toast.makeText(VerifyotpActivity.this, Objects.requireNonNull(task.getException()).getMessage(), Toast.LENGTH_LONG).show();
+                            //Toast.makeText(VerifyotpActivity.this, "USER NOT REGISTETRED", Toast.LENGTH_LONG).show();
                         }
                     }
                 });
