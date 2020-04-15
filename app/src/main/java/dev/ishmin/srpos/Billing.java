@@ -27,7 +27,6 @@ public class Billing extends AppCompatActivity {
     static String res = null;
     static String name;
     static String mrp;
-    Button read;
     List<String> productlist;
     ListView billing;
     ArrayAdapter<String> arrayAdapter;
@@ -36,9 +35,11 @@ public class Billing extends AppCompatActivity {
     List<String> productname = new ArrayList<String>();
     List<String> productmrp = new ArrayList<String>();
     List<String> productsku = new ArrayList<String>();
-    int total=0;
+    List<String> productquantity = new ArrayList<String>();
+    float total=0;
     Button totalbutton;
     TextView totalview;
+    Button scanner;
 
 
 
@@ -53,6 +54,7 @@ public class Billing extends AppCompatActivity {
         billing.setAdapter(arrayAdapter);
         totalbutton=findViewById(R.id.totalbutton);
         totalview=findViewById(R.id.totaldisplay);
+        scanner=findViewById(R.id.scanner);
 
         totalbutton.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -63,7 +65,7 @@ public class Billing extends AppCompatActivity {
 
                 }
                 else
-                    totalview.setText(Integer.toString(total));
+                    totalview.setText(Float.toString(total));
             }
         });
 
@@ -71,36 +73,60 @@ public class Billing extends AppCompatActivity {
 // put qr action listener here ..and return the code scanned in String sku.
 
 
-        if(productsku.contains(sku))
-        {
-            index = productsku.indexOf(sku);
 
-            String tempmrp=productmrp.get(index);
+        scanner.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                //sku=entry.getText().toString();
+                if(productsku.contains(sku))
+                {
+                    index = productsku.indexOf(sku);
 
-             int tempMRP=Integer.parseInt(tempmrp);
+                    String tempmrp=productmrp.get(index);
+                    float tempMRP=Float.parseFloat(tempmrp.trim());
+                    total+=tempMRP;
+                    String tempname=productname.get(index);
 
-             String tempproduct=productlist.get(index);
-             String[] split= tempproduct.split("\\s");
-             tempMRP+=Integer.parseInt(split[1]);
-             String update=split[0]+Integer.toString(tempMRP);
-
-            productlist.set(index,update);
-            arrayAdapter.notifyDataSetChanged();
-        }
-
-        else
-        {
-            try {
-                String myUrl = "http://smartretailpos.pe.hu/api/products.php?sku=" + sku;
-                String returned;
-                Connection connection = new Connection();
-                returned = connection.execute(myUrl).get();
+                    String tempquantity=productquantity.get(index);
+                    int quantity=Integer.parseInt(tempquantity.trim());
+                    quantity++;
+                    productquantity.set(index,Integer.toString(quantity));
 
 
-            } catch (Exception e) {
-                Log.i("Exception", e.getMessage());
+                    tempMRP*=quantity;
+
+
+
+                    String update=tempname+" "+Float.toString(tempMRP);
+
+                   /* String tempproduct=productlist.get(index);
+                    String[] split= tempproduct.split("\\s");
+                    Log.i("splitting",split[1]);
+                    tempMRP+=Integer.parseInt(split[1]);
+                    String update=split[0]+(Float.toString(tempMRP));*/
+
+                    productlist.set(index,update);
+                    arrayAdapter.notifyDataSetChanged();
+                }
+
+                else
+                {
+                    try {
+
+                        String myUrl = "http://smartretailpos.pe.hu/api/products.php?sku=" + sku;
+                        String returned;
+                        Connection connection = new Connection();
+                        returned = connection.execute(myUrl).get();
+
+
+                    } catch (Exception e) {
+                        Toast.makeText(Billing.this,"not scanned",Toast.LENGTH_SHORT).show();
+                        Log.i("Exception", e.getMessage());
+                    }
+                }
             }
-        }
+        });
+
     }
 
     class Connection extends AsyncTask<String, Void, String> {
@@ -163,13 +189,15 @@ public class Billing extends AppCompatActivity {
                     mrp = object.getString("mrp");
 
                     newitem=name+" "+mrp;
+                    Log.i("mrp",mrp);
                     productlist.add(newitem);
                     arrayAdapter.notifyDataSetChanged();
 
-                    productlist.add(name);
+                    productname.add(name);
                     productmrp.add(mrp);
                     productsku.add(sku);
-                    total+=Integer.parseInt(mrp);
+                    productquantity.add("1");
+                    total+=Float.parseFloat(mrp.trim());
                 }
 
             } catch (Exception e)
