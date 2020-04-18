@@ -26,8 +26,6 @@ EditText name=findViewById(R.id.name);
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_purchase_new_item);
         //populate textviews..auto
-
-
         try {
 
 
