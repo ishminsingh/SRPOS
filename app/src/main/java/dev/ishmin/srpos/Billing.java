@@ -2,6 +2,7 @@ package dev.ishmin.srpos;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.content.Intent;
 import android.database.Cursor;
 import android.os.AsyncTask;
 import android.os.Bundle;
@@ -47,7 +48,7 @@ public class Billing extends AppCompatActivity {
     List<String> productsupplier = new ArrayList<String>();
     List<String> productunit = new ArrayList<String>();
 
-    float total=0;
+   static float total=0;
     Button totalbutton;
     TextView totalview;
     Button scanner;
@@ -66,7 +67,7 @@ public class Billing extends AppCompatActivity {
         totalbutton=findViewById(R.id.totalbutton);
         totalview=findViewById(R.id.totaldisplay);
         scanner=findViewById(R.id.scanner);
-          Button payment=findViewById(R.id.payment);
+          final Button payment=findViewById(R.id.payment);
 
           payment.setOnClickListener(new View.OnClickListener() {
               @Override
@@ -78,11 +79,12 @@ public class Billing extends AppCompatActivity {
                   String date = new SimpleDateFormat("yyyy-MM-dd", Locale.getDefault()).format(new Date());
                   for(int i =0; i<productlist.size();i++)
                   {
-                  MainActivity.SRPOS.execSQL("INSERT INTO Solditems(name,mrp,quantity,unit,date)VALUES('"+productname.get(i)+"','"+productmrp.get(i)+"','"+productquantity.get(i)+"',"+productunit.get(i)+",'"+date+"')");
+                  MainActivity.SRPOS.execSQL("INSERT INTO Solditems(name,mrp,quantity,unit,date)VALUES('"+productname.get(i)+"','"+Float.parseFloat(productmrp.get(i))+"','"+Integer.parseInt(productquantity.get(i))+"',"+productunit.get(i)+",'"+date+"')");
 
 
                   }
-                  //intent
+                 // Intent intent=new Intent(Billing.this, dev.ishmin.srpos.payment.class);
+                  //startActivity(intent);
               }
           });
 
@@ -126,7 +128,7 @@ public class Billing extends AppCompatActivity {
 
                     tempMRP*=quantity;
 
-                    String update=tempname+" "+Float.toString(tempMRP);
+                    String update = tempname + "  "+quantity+"  " + Float.toString(tempMRP);
 
                    /* String tempproduct=productlist.get(index);
                     String[] split= tempproduct.split("\\s");
@@ -164,23 +166,23 @@ public class Billing extends AppCompatActivity {
                         while (!c.isAfterLast()) {
                             //Log.i("name", c.getString(name));
                             //Log.i("sku", c.getString(sku));
-                            String newitem=c.getString(name)+" "+c.getString(sku);
-                            productlist.add(newitem);
-                            arrayAdapter.notifyDataSetChanged();
-
                             productname.add(c.getString(name));
                             productcategory.add(c.getString(category));
                             productsubcategory.add(c.getString(subcategory));
                             productbrand.add(c.getString(brand));
-                            productmrp.add(c.getString(mrp).toString());
-                            productsku.add(c.getString(sku).toString());
+                            productmrp.add(Float.toString(c.getFloat(mrp)));
+                            productsku.add(Integer.toString(c.getInt(sku)));
                             productsupplier.add(c.getString(supplier));
-                            productunit.add(c.getString(unit).toString());
-                            productbuyrate.add(c.getString(buyrate).toString());
+                            productunit.add(Integer.toString(c.getInt(unit)));
+                            productbuyrate.add(Float.toString(c.getFloat(buyrate)));
 
                             productquantity.add("1");
-                            total+=Float.parseFloat(c.getString(mrp).trim());
+                            total += c.getFloat(mrp);
+                            String newitem = c.getString(name) +"  1   "+  Float.toString(c.getFloat(mrp));
+                            productlist.add(newitem);
+                            arrayAdapter.notifyDataSetChanged();
                             c.moveToNext();
+
 
                         }
 

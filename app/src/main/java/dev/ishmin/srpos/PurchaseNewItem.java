@@ -26,6 +26,8 @@ EditText name=findViewById(R.id.name);
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_purchase_new_item);
         //populate textviews..auto
+
+
         try {
 
 
@@ -56,6 +58,8 @@ EditText name=findViewById(R.id.name);
                        try {
                            MainActivity.SRPOS.execSQL("INSERT INTO PurchasedItems(name,category,subcategory,brand,sku,buyrate, mrp,supplier,unit,quantiy,date)VALUES('" + name1 + "','" + category1 + "','" + subcategory1 + "'," + sku1 + "," + buyrate1 + "," + mrp1 + ",'" + units1 + "," + quantity1 + "'" + supplier1 + "')");
                            MainActivity.SRPOS.execSQL("INSERT INTO Products(name,category,subcategory,brand,sku,buyrate, mrp,supplier,unit,quantiy)VALUES('" + name1 + "','" + category1 + "','" + subcategory1 + "'," + sku1 + "," + buyrate1 + "," + mrp1 + ",'" + units1 + "," + quantity1 + "'" + supplier1 + "')");
+
+
                        }
                        catch (Exception e)
                        {

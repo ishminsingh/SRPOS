@@ -6,38 +6,15 @@
     android:layout_height="match_parent"
     tools:context=".PurchaseNewItem">
 
-    <EditText
-        android:id="@+id/category"
-        android:layout_width="157dp"
-        android:layout_height="80dp"
-        android:layout_marginTop="52dp"
-        android:layout_marginEnd="8dp"
-        android:layout_marginRight="8dp"
-        android:ems="10"
-        android:inputType="textPersonName"
-        android:text="category"
-        app:layout_constraintEnd_toStartOf="@+id/Subcategory"
-        app:layout_constraintTop_toBottomOf="@+id/name" />
-
-    <EditText
-        android:id="@+id/Subcategory"
-        android:layout_width="194dp"
-        android:layout_height="66dp"
-        android:layout_marginEnd="27dp"
-        android:layout_marginRight="27dp"
-        android:ems="10"
-        android:inputType="textPersonName"
-        android:text="Subcategory"
-        app:layout_constraintEnd_toEndOf="parent"
-        tools:layout_editor_absoluteY="152dp" />
-
     <AutoCompleteTextView
         android:id="@+id/name"
         android:layout_width="152dp"
         android:layout_height="49dp"
         android:layout_marginTop="36dp"
         android:completionHint="Select a name"
+        android:completionThreshold="1"
         android:text="Name.."
+        app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
     <EditText
@@ -46,7 +23,7 @@
         android:layout_height="58dp"
         android:layout_marginStart="21dp"
         android:layout_marginLeft="21dp"
-        android:layout_marginTop="49dp"
+        android:layout_marginTop="76dp"
         android:ems="10"
         android:inputType="number"
         android:text="sku"
@@ -111,7 +88,7 @@
         android:layout_height="wrap_content"
         android:layout_marginStart="17dp"
         android:layout_marginLeft="17dp"
-        android:layout_marginTop="50dp"
+        android:layout_marginTop="78dp"
         android:ems="10"
         android:inputType="number"
         android:text="units"
@@ -135,8 +112,38 @@
         android:id="@+id/brand"
         android:layout_width="149dp"
         android:layout_height="55dp"
+        android:layout_marginStart="53dp"
+        android:layout_marginLeft="53dp"
+        android:layout_marginTop="30dp"
         android:completionHint="brand"
+        android:completionThreshold="1"
         android:text="brand"
-        tools:layout_editor_absoluteX="205dp"
-        tools:layout_editor_absoluteY="30dp" />
+        app:layout_constraintStart_toEndOf="@+id/name"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <AutoCompleteTextView
+        android:id="@+id/category"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="49dp"
+        android:layout_marginLeft="49dp"
+        android:layout_marginTop="61dp"
+        android:completionHint="category"
+        android:completionThreshold="1"
+        android:text="category"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/name" />
+
+    <AutoCompleteTextView
+        android:id="@+id/Subcategory"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="60dp"
+        android:layout_marginEnd="117dp"
+        android:layout_marginRight="117dp"
+        android:completionHint="subcategory"
+        android:completionThreshold="1"
+        android:text="subcategory"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/brand" />
 </androidx.constraintlayout.widget.ConstraintLayout>
