@@ -2,6 +2,7 @@ package dev.ishmin.srpos;
 
 import android.app.ActionBar;
 import android.content.Intent;
+import android.database.sqlite.SQLiteDatabase;
 import android.os.Bundle;
 import android.view.MenuItem;
 import android.view.Menu;
@@ -29,11 +30,14 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
 
     private AppBarConfiguration mAppBarConfiguration;
     private DrawerLayout drawer;
+    static SQLiteDatabase SRPOS;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+        SRPOS = this.openOrCreateDatabase("SRPOS",MODE_PRIVATE,null);
+
         Toolbar toolbar = findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
 

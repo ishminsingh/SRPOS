@@ -2,12 +2,16 @@ package dev.ishmin.srpos;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.database.Cursor;
 import android.os.AsyncTask;
 import android.os.Bundle;
+import android.text.Editable;
+import android.text.TextWatcher;
 import android.util.Log;
 import android.view.View;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
+import android.widget.EditText;
 import android.widget.ListView;
 import android.widget.Toast;
 
@@ -43,25 +47,146 @@ public class Products extends AppCompatActivity {
         products = findViewById(R.id.productlist);
         arrayAdapter = new ArrayAdapter<String>(this, android.R.layout.simple_list_item_1, productlist);
         products.setAdapter(arrayAdapter);
+        final EditText search = findViewById(R.id.search);
+
+        try
+
+            //  MainActivity.SRPOS.execSQL("CREATE TABLE IF NOT EXISTS Products(id INTEGER PRIMARY KEY, name VARCHAR ,category VARCHAR, subcategory VARCHAR, brand VARCHAR ,sku INT,buyrate FLOAT,mrp , FLOAT,supplier VARCHAR,unit VARCHAR )");
+            //MainActivity.SRPOS.execSQL("INSERT INTO Products(name,category,subcategory,brand,sku,buyrate, mrp,supplier,unit)VALUES()");
+
+            {
+                Cursor c = MainActivity.SRPOS.rawQuery("SELECT * FROM Products ", null);
+                int name = c.getColumnIndex("name");
+                int category = c.getColumnIndex("category");
+                int subcategory = c.getColumnIndex("subcategory");
+                int brand = c.getColumnIndex("brand");
+                int sku = c.getColumnIndex("sku");
+                c.moveToFirst();
+
+                while (!c.isAfterLast()) {
+                    //Log.i("name", c.getString(name));
+                    //Log.i("sku", c.getString(sku));
+                    String newitem=c.getString(name)+" "+c.getString(sku);
+                    productlist.add(newitem);
+                    arrayAdapter.notifyDataSetChanged();
+
+                }
+            }
+        catch (Exception e)
+        {
+            e.printStackTrace();
+
+        }
 
 
 
+
+                  //  String myUrl = "http://smartretailpos.pe.hu/api/products.php?sku=all";
+                   // String returned;
+                   // Connection connection = new Connection();
+                   // returned = connection.execute(myUrl).get();
+
+        search.addTextChangedListener(new TextWatcher() {
+            @Override
+            public void beforeTextChanged(CharSequence s, int start, int count, int after) {
+
+            }
+
+            @Override
+            public void onTextChanged(CharSequence s, int start, int before, int count) {
                 try {
-                    String myUrl = "http://smartretailpos.pe.hu/api/products.php?sku=all";
-                    String returned;
-                    Connection connection = new Connection();
-                    returned = connection.execute(myUrl).get();
 
+                    //  MainActivity.SRPOS.execSQL("CREATE TABLE IF NOT EXISTS Products(id INTEGER PRIMARY KEY, name VARCHAR ,category VARCHAR, subcategory VARCHAR, brand VARCHAR ,sku INT,buyrate FLOAT,mrp , FLOAT,supplier VARCHAR,unit VARCHAR )");
+                    //MainActivity.SRPOS.execSQL("INSERT INTO Products(name,category,subcategory,brand,sku,buyrate, mrp,supplier,unit)VALUES()");
+                    if(!search.getText().equals(""))
+                    {
+                    Cursor c = MainActivity.SRPOS.rawQuery("SELECT * FROM Products WHERE name='"+search.getText().toString()+"'", null);
+                    int name = c.getColumnIndex("name");
+                    int category = c.getColumnIndex("category");
+                    int subcategory = c.getColumnIndex("subcategory");
+                    int brand = c.getColumnIndex("brand");
+                    int sku = c.getColumnIndex("sku");
+                    c.moveToFirst();
 
-                } catch (Exception e)
+                    while (!c.isAfterLast()) {
+                        //Log.i("name", c.getString(name));
+                        //Log.i("sku", c.getString(sku));
+                        String newitem=c.getString(name)+" "+c.getString(sku);
+                        productlist.add(newitem);
+                        arrayAdapter.notifyDataSetChanged();
+
+                      }
+                    }
+                    else
+                        {
+                            Cursor c = MainActivity.SRPOS.rawQuery("SELECT * FROM Products ", null);
+                            int name = c.getColumnIndex("name");
+                            int category = c.getColumnIndex("category");
+                            int subcategory = c.getColumnIndex("subcategory");
+                            int brand = c.getColumnIndex("brand");
+                            int sku = c.getColumnIndex("sku");
+                            c.moveToFirst();
+
+                            while (!c.isAfterLast()) {
+                                //Log.i("name", c.getString(name));
+                                //Log.i("sku", c.getString(sku));
+                                String newitem=c.getString(name)+" "+c.getString(sku);
+                                productlist.add(newitem);
+                                arrayAdapter.notifyDataSetChanged();
+
+                            }
+                        }
+
+                }
+                catch (Exception e)
                 {
-                    Log.i("Exception", e.getMessage());
+                    e.printStackTrace();
+                }
+
+
+
+            }
+
+            @Override
+            public void afterTextChanged(Editable s) {
+
+            }
+        });
+                    try {
+
+                      //  MainActivity.SRPOS.execSQL("CREATE TABLE IF NOT EXISTS Products(id INTEGER PRIMARY KEY, name VARCHAR ,category VARCHAR, subcategory VARCHAR, brand VARCHAR ,sku INT,buyrate FLOAT,mrp , FLOAT,supplier VARCHAR,unit VARCHAR )");
+                        //MainActivity.SRPOS.execSQL("INSERT INTO Products(name,category,subcategory,brand,sku,buyrate, mrp,supplier,unit)VALUES()");
+
+                        Cursor c = MainActivity.SRPOS.rawQuery("SELECT * FROM Products", null);
+                        int name = c.getColumnIndex("name");
+                        int category = c.getColumnIndex("category");
+                        int subcategory = c.getColumnIndex("subcategory");
+                        int brand = c.getColumnIndex("brand");
+                        int sku = c.getColumnIndex("sku");
+                        c.moveToFirst();
+
+                        while (!c.isAfterLast()) {
+                            //Log.i("name", c.getString(name));
+                            //Log.i("sku", c.getString(sku));
+                            String newitem=c.getString(name)+" "+c.getString(sku);
+                            productlist.add(newitem);
+                            arrayAdapter.notifyDataSetChanged();
+
+                        }
+                    }
+                    catch (Exception e)
+                    {
+                        e.printStackTrace();
+                    }
+
+
+
                 }
 
 
     }
 
-    class Connection extends AsyncTask<String, Void, String> {
+   /* class Connection extends AsyncTask<String, Void, String> {
 
         public static final String REQUEST_METHOD = "GET";
         public static final int READ_TIMEOUT = 15000;
@@ -129,5 +254,5 @@ public class Products extends AppCompatActivity {
                 e.printStackTrace();
             }
         }
-    }
-}
+    }*/
+
