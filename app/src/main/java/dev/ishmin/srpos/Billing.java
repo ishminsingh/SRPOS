@@ -77,6 +77,7 @@ public class Billing extends AppCompatActivity {
         scanner.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+
                 //sku=entry.getText().toString();
                 if(productsku.contains(sku))
                 {
@@ -92,10 +93,7 @@ public class Billing extends AppCompatActivity {
                     quantity++;
                     productquantity.set(index,Integer.toString(quantity));
 
-
                     tempMRP*=quantity;
-
-
 
                     String update=tempname+" "+Float.toString(tempMRP);
 
