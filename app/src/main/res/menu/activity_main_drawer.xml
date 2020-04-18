@@ -3,39 +3,67 @@
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     tools:showIn="navigation_view">
-
-    <group android:checkableBehavior="single">
+    <group
+        android:id="@+id/grp1"
+        android:checkableBehavior="single">
         <item
-            android:id="@+id/nav_sales"
-            android:icon="@drawable/ic_trending_sales_black_24dp"
-            android:title="@string/menu_sales" />
+            android:id="@+id/dashboardFragment"
+            android:icon="@drawable/ic_dashboard_black_24dp"
+            android:title="@string/menu_dashboard"
+            android:menuCategory="secondary"/>
         <item
-            android:id="@+id/nav_purchase"
+            android:id="@+id/billingFragment"
+            android:icon="@drawable/ic_billing_black_24dp"
+            android:title="@string/menu_billing"
+            android:menuCategory="secondary"/>
+        <item
+            android:id="@+id/productsFragment"
             android:icon="@drawable/ic_local_grocery_store_black_24dp"
-            android:title="@string/menu_purchase" />
+            android:title="@string/menu_products"
+            android:menuCategory="secondary"/>
         <item
-            android:id="@+id/nav_Expenses"
+            android:id="@+id/salesFragment"
+            android:icon="@drawable/ic_trending_sales_black_24dp"
+            android:title="@string/menu_sales"
+            android:menuCategory="secondary"/>
+        <item
+            android:id="@+id/purchaseFragment"
+            android:icon="@drawable/ic_purchase_black_24dp"
+            android:title="@string/menu_purchase"
+            android:menuCategory="secondary"/>
+    </group>
+    <group
+        android:id="@+id/grp2"
+        android:checkableBehavior="single">
+        <item
+            android:id="@+id/ExpensesFragment"
             android:icon="@drawable/ic_receipt_black_24dp"
-            android:title="@string/menu_expenses" />
+            android:title="@string/menu_expenses"
+            android:menuCategory="secondary"/>
         <item
-            android:id="@+id/nav_stock"
+            android:id="@+id/stockFragment"
             android:icon="@drawable/ic_stock_black_24dp"
-            android:title="@string/menu_stock" />
+            android:title="@string/menu_stock"
+            android:menuCategory="secondary"/>
         <item
-            android:id="@+id/nav_stores"
+            android:id="@+id/storesFragment"
             android:icon="@drawable/ic_store_black_24dp"
-            android:title="@string/menu_stores" />
+            android:title="@string/menu_stores"
+            android:menuCategory="secondary"/>
         <item
-            android:id="@+id/nav_hsn"
+            android:id="@+id/hsnFragment"
             android:icon="@drawable/ic_search_hsn_black_24dp"
-            android:title="@string/menu_hsn" />
+            android:title="@string/menu_hsn"
+            android:menuCategory="secondary"/>
         <item
-            android:id="@+id/nav_reports"
+            android:id="@+id/reportsFragment"
             android:icon="@drawable/ic_pie_chart_black_24dp"
-            android:title="@string/menu_reports" />
+            android:title="@string/menu_reports"
+            android:menuCategory="secondary"/>
         <item
-            android:id="@+id/nav_staffs"
+            android:id="@+id/staffsFragment"
             android:icon="@drawable/ic_staff_black_24dp"
-            android:title="@string/menu_staff" />
+            android:title="@string/menu_staff"
+            android:menuCategory="secondary"/>
     </group>
 </menu>

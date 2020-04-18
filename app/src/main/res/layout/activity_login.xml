@@ -62,6 +62,7 @@
         android:padding="2dp"
         tools:ignore="Autofill,LabelFor"/>
     <Button
+        android:clickable="true"
         android:id="@+id/contBtn"
         android:layout_width="match_parent"
         android:layout_height="35dp"
@@ -71,5 +72,6 @@
         android:textAllCaps="false"
         android:layout_below="@id/mobileNum"
         android:layout_centerInParent="true"
-        android:layout_marginBottom="10dp"/>
+        android:layout_marginBottom="10dp"
+        android:focusable="true" />
 </RelativeLayout>

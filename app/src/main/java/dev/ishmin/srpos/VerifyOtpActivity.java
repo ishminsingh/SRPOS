@@ -5,10 +5,8 @@ import androidx.annotation.RequiresApi;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Intent;
-import android.os.AsyncTask;
 import android.os.Build;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.View;
 import android.widget.EditText;
 import android.widget.Toast;
@@ -22,22 +20,15 @@ import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.PhoneAuthCredential;
 import com.google.firebase.auth.PhoneAuthProvider;
 
-import java.io.InputStream;
-import java.io.InputStreamReader;
-import java.net.HttpURLConnection;
-import java.net.URL;
 import java.util.Objects;
 import java.util.concurrent.TimeUnit;
 
-public class VerifyotpActivity extends AppCompatActivity {
+public class VerifyOtpActivity extends AppCompatActivity {
 
     private String verificationId;
     private FirebaseAuth mAuth;
     private EditText otp;
     String mobile;
-
-
-
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -73,42 +64,36 @@ public class VerifyotpActivity extends AppCompatActivity {
         signInWithPhoneAuthCredential(credential);
     }
     private void signInWithPhoneAuthCredential(PhoneAuthCredential credential) {
-        mAuth.signInWithCredential(credential)
-                .addOnCompleteListener(VerifyotpActivity.this, new OnCompleteListener<AuthResult>() {
-                    @RequiresApi(api = Build.VERSION_CODES.KITKAT)
-                    @Override
-                    public void onComplete(@NonNull Task<AuthResult> task) {
-                        if (task.isSuccessful()) {
-                            //verification successful we will start the profile activity
-
-                                Intent intent = new Intent(VerifyotpActivity.this, MainActivity.class);
-                            intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
-                            startActivity(intent);
-
-
-                        } else {
-                            //verification unsuccessful.. display an error message
-                            Toast.makeText(VerifyotpActivity.this, Objects.requireNonNull(task.getException()).getMessage(), Toast.LENGTH_LONG).show();
-                            //Toast.makeText(VerifyotpActivity.this, "USER NOT REGISTETRED", Toast.LENGTH_LONG).show();
-                        }
-                    }
-                });
+        mAuth.signInWithCredential(credential).addOnCompleteListener(VerifyOtpActivity.this, new OnCompleteListener<AuthResult>() {
+            @RequiresApi(api = Build.VERSION_CODES.KITKAT)
+            @Override
+            public void onComplete(@NonNull Task<AuthResult> task) {
+                if (task.isSuccessful()) {
+                //verification successful we will start the profile activity
+                Intent intent = new Intent(VerifyOtpActivity.this, MainActivity.class);
+                intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
+                startActivity(intent);
+                } else {
+                //verification unsuccessful.. display an error message
+                Toast.makeText(VerifyOtpActivity.this, Objects.requireNonNull(task.getException()).getMessage(), Toast.LENGTH_LONG).show();
+                //Toast.makeText(VerifyOtpActivity.this, "USER NOT REGISTETRED", Toast.LENGTH_LONG).show();
+                }
+            }
+        });
     }
     private void sendVerificationCode(String mobile) {
         PhoneAuthProvider.getInstance().verifyPhoneNumber(
-                "+91" + mobile,
-                60,
-                TimeUnit.SECONDS,
-                TaskExecutors.MAIN_THREAD,
-                mCallbacks);
+        "+91" + mobile,
+        60,
+        TimeUnit.SECONDS,
+        TaskExecutors.MAIN_THREAD,
+        mCallbacks);
     }
-    private PhoneAuthProvider.OnVerificationStateChangedCallbacks
-            mCallbacks = new PhoneAuthProvider.OnVerificationStateChangedCallbacks(){
+    private PhoneAuthProvider.OnVerificationStateChangedCallbacks mCallbacks = new PhoneAuthProvider.OnVerificationStateChangedCallbacks(){
         @Override
         public void onVerificationCompleted(PhoneAuthCredential phoneAuthCredential) {
             //Getting the code sent by SMS
             String code = phoneAuthCredential.getSmsCode();
-
             //sometime the code is not detected automatically
             //in this case the code will be null
             //so user has to manually enter the code
@@ -120,7 +105,7 @@ public class VerifyotpActivity extends AppCompatActivity {
         }
         @Override
         public void onVerificationFailed(FirebaseException e) {
-            Toast.makeText(VerifyotpActivity.this, e.getMessage(), Toast.LENGTH_LONG).show();
+            Toast.makeText(VerifyOtpActivity.this, e.getMessage(), Toast.LENGTH_LONG).show();
         }
         @Override
         public void onCodeSent(String s, PhoneAuthProvider.ForceResendingToken forceResendingToken) {

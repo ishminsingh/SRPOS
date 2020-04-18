@@ -1,6 +1,5 @@
 package dev.ishmin.srpos;
 
-import android.app.ActionBar;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.MenuItem;
@@ -21,14 +20,17 @@ import androidx.drawerlayout.widget.DrawerLayout;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
 
-import dev.ishmin.srpos.ui.expenses.ExpensesFragment;
-import dev.ishmin.srpos.ui.purchase.PurchaseFragment;
-import dev.ishmin.srpos.ui.sales.SalesFragment;
+import dev.ishmin.srpos.Fragments.dashboard.DashboardFragment;
+import dev.ishmin.srpos.Fragments.expenses.ExpensesFragment;
+import dev.ishmin.srpos.Fragments.purchase.PurchaseFragment;
+import dev.ishmin.srpos.Fragments.sales.SalesFragment;
 
-public class MainActivity extends AppCompatActivity implements NavigationView.OnNavigationItemSelectedListener {
+public class MainActivity extends AppCompatActivity {
 
-    private AppBarConfiguration mAppBarConfiguration;
+    private AppBarConfiguration AppBarConfiguration;
     private DrawerLayout drawer;
+    private NavigationView navigationView;
+    private NavController navController;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -37,28 +39,33 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         Toolbar toolbar = findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
 
-         drawer = findViewById(R.id.drawer_layout);
-        NavigationView navigationView = findViewById(R.id.nav_view);
-        navigationView.setNavigationItemSelectedListener(this);
+        drawer = findViewById(R.id.drawer_layout);
+        navigationView = findViewById(R.id.nav_view);
+        navController = Navigation.findNavController(this, R.id.nav_host_fragment);
+        AppBarConfiguration = new AppBarConfiguration.Builder(R.id.dashboardFragment, R.id.billingFragment, R.id.productsFragment, R.id.salesFragment)
+                .setDrawerLayout(drawer)
+                .build();
+        NavigationUI.setupWithNavController(navigationView, navController);
+        NavigationUI.setupActionBarWithNavController(this, navController, AppBarConfiguration);
+
+//        navigationView.setNavigationItemSelectedListener(this);
+
         ActionBarDrawerToggle toggle = new ActionBarDrawerToggle(this, drawer, toolbar,
                 R.string.navigation_drawer_open, R.string.navigation_drawer_close);
         drawer.addDrawerListener(toggle);
         toggle.syncState();
         if(savedInstanceState == null){
-            getSupportFragmentManager().beginTransaction().replace(R.id.nav_host_fragment, new SalesFragment()).commit();
-            navigationView.setCheckedItem(R.id.nav_sales);
+            getSupportFragmentManager().beginTransaction().replace(R.id.nav_host_fragment, new DashboardFragment()).commit();
+            navigationView.setCheckedItem(R.id.dashboardFragment);
         }
-        // Passing each menu ID as a set of Ids because each
-        // menu should be considered as top level destinations.
-//        mAppBarConfiguration = new AppBarConfiguration.Builder(
-//                R.id.nav_sales, R.id.nav_purchase, R.id.nav_Expenses, R.id.nav_stock, R.id.nav_stores, R.id.nav_hsn, R.id.nav_reports, R.id.nav_staffs)
-//                .setDrawerLayout(drawer)
-//                .build();
-//        NavController navController = Navigation.findNavController(this, R.id.nav_host_fragment);
-//        NavigationUI.setupActionBarWithNavController(this, navController, mAppBarConfiguration);
-//        NavigationUI.setupWithNavController(navigationView, navController);
     }
-
+    @Override
+    public boolean onSupportNavigateUp() {
+        return NavigationUI.navigateUp(navController, AppBarConfiguration);
+//        NavController navController = Navigation.findNavController(this, R.id.nav_host_fragment);
+//        return NavigationUI.navigateUp(navController, AppBarConfiguration)
+//                || super.onSupportNavigateUp();
+    }
     @Override
     public void onBackPressed() {
         if(drawer.isDrawerOpen(GravityCompat.START)){
@@ -87,25 +94,17 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         }
         return true;
     }
-
-    @Override
-    public boolean onNavigationItemSelected(@NonNull MenuItem item) {
-        switch(item.getItemId()){
-            case R.id.nav_sales:
-                getSupportFragmentManager().beginTransaction().replace(R.id.nav_host_fragment, new SalesFragment()).commit();
-            case R.id.nav_purchase:
-                getSupportFragmentManager().beginTransaction().replace(R.id.nav_host_fragment, new PurchaseFragment()).commit();
-            case R.id.nav_Expenses:
-                getSupportFragmentManager().beginTransaction().replace(R.id.nav_host_fragment, new ExpensesFragment()).commit();
-        }
-        drawer.closeDrawer(GravityCompat.START);
-        return true;
-    }
-
-    @Override
-    public boolean onSupportNavigateUp() {
-        NavController navController = Navigation.findNavController(this, R.id.nav_host_fragment);
-        return NavigationUI.navigateUp(navController, mAppBarConfiguration)
-                || super.onSupportNavigateUp();
-    }
+//    @Override
+//    public boolean onNavigationItemSelected(@NonNull MenuItem item) {
+//        switch(item.getItemId()){
+//            case R.id.billingFragment:
+//                getSupportFragmentManager().beginTransaction().replace(R.id.nav_host_fragment, new SalesFragment()).commit();
+//            case R.id.productsFragment:
+//                getSupportFragmentManager().beginTransaction().replace(R.id.nav_host_fragment, new PurchaseFragment()).commit();
+//            case R.id.salesFragment:
+//                getSupportFragmentManager().beginTransaction().replace(R.id.nav_host_fragment, new ExpensesFragment()).commit();
+//        }
+//        drawer.closeDrawer(GravityCompat.START);
+//        return true;
+//    }
 }

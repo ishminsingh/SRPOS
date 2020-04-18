@@ -3,23 +3,26 @@
     xmlns:tools="http://schemas.android.com/tools"
     package="dev.ishmin.srpos">
 
+    <uses-permission android:name="android.permission.CAMERA" />
+    <uses-feature android:name="android.hardware.camera" />
     <application
         android:allowBackup="true"
-        android:icon="@mipmap/ic_launcher"
+        android:icon="@mipmap/ic_launcher_srpos"
         android:label="@string/app_name"
         android:usesCleartextTraffic="true"
-        android:roundIcon="@mipmap/ic_launcher_round"
+        android:roundIcon="@mipmap/ic_launcher_srpos"
         android:supportsRtl="true"
         android:theme="@style/AppTheme"
-        tools:ignore="AllowBackup">
-        <activity android:name=".Billing"></activity>
+        tools:ignore="AllowBackup"
+        tools:targetApi="m">
+        <activity android:name=".Billing" />
         <activity android:name=".Products" />
         <activity
-            android:name=".VerifyotpActivity"
-            android:theme="@style/AppTheme.NoActionBar" />
+            android:name=".VerifyOtpActivity"
+            android:theme="@style/splashScreen" />
         <activity
             android:name=".LoginActivity"
-            android:theme="@style/AppTheme.NoActionBar" />
+            android:theme="@style/splashScreen" />
         <activity
             android:name=".MainActivity"
             android:label="@string/app_name"
@@ -37,6 +40,7 @@
         </activity>
     </application>
 
-    <uses-permission android:name="android.permission.INTERNET" />
+    <uses-permission android:name="android.permission.INTERNET"
+        tools:ignore="ManifestOrder" />
 
 </manifest>

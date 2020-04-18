@@ -1,5 +1,5 @@
 <resources>
-    <string name="app_name">SRPOS</string>
+    <string name="app_name">Smart Retail</string>
     <string name="navigation_drawer_open">Open navigation drawer</string>
     <string name="navigation_drawer_close">Close navigation drawer</string>
     <string name="nav_header_title">Android Studio</string>
@@ -45,4 +45,7 @@
     <string name="menu_supp">Suppliers</string>
 
     <string name="action_signOut">Sign out</string>
+    <string name="menu_billing">Billing</string>
+    <string name="menu_products">Products</string>
+    <string name="menu_dashboard">Dashboard</string>
 </resources>

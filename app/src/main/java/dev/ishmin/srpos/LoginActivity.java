@@ -1,9 +1,11 @@
 package dev.ishmin.srpos;
 
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.core.content.ContextCompat;
 
 import android.content.Intent;
 import android.os.AsyncTask;
+import android.os.Build;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
@@ -13,25 +15,21 @@ import android.widget.Toast;
 import com.google.firebase.auth.FirebaseAuth;
 
 import java.io.BufferedReader;
-import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.net.HttpURLConnection;
 import java.net.URL;
 
-import static org.apache.http.params.CoreConnectionPNames.CONNECTION_TIMEOUT;
-
 public class LoginActivity extends AppCompatActivity {
 
     private EditText mobileNum;
-    protected static String sessioncode="";
+    protected static String sessionCode="";
     String mobile;
 
-    public class session extends AsyncTask<String,Void,String>
+    public static class session extends AsyncTask<String,Void,String>
     {
-
-        public static final String REQUEST_METHOD = "GET";
-        public static final int READ_TIMEOUT = 15000;
-        public static final int CONNECTION_TIMEOUT = 15000;
+        static final String REQUEST_METHOD = "GET";
+        static final int READ_TIMEOUT = 15000;
+        static final int CONNECTION_TIMEOUT = 15000;
         @Override
         protected String doInBackground(String... strings)
         {
@@ -79,12 +77,11 @@ public class LoginActivity extends AppCompatActivity {
             Log.i("on post",s);
         }
     }
-
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_login);
+
 
         mobileNum = findViewById(R.id.mobileNum);
         findViewById(R.id.contBtn).setOnClickListener(new View.OnClickListener() {
@@ -94,15 +91,13 @@ public class LoginActivity extends AppCompatActivity {
                 if (mobile.length() != 10) {
                     mobileNum.setError("Enter a valid Phone number");
                     mobileNum.requestFocus();
-                    return;
                 }
-
                else {
                     try {
-                        String myurl="http://smartretailpos.pe.hu/api/auth.php?action=getdata&cno="+mobile;
+                        String myurl="http://smartretailpos.pe.hu/api/auth.php?action=getdata&cno="+ mobile;
                         session newsession = new session();
-                        sessioncode = newsession.execute(myurl).get();
-                        Log.i("basic",sessioncode);
+                        sessionCode = newsession.execute(myurl).get();
+                        Log.i("basic",sessionCode);
                     }
                     catch (Exception e)
                     {
@@ -110,14 +105,14 @@ public class LoginActivity extends AppCompatActivity {
                         Log.i("basic","failed");
 
                     }
-                    if (sessioncode.length()>1)
+                    if (sessionCode.length()>1)
                     {
-                        Intent intent = new Intent(LoginActivity.this, VerifyotpActivity.class);
+                        Intent intent = new Intent(LoginActivity.this, VerifyOtpActivity.class);
                         intent.putExtra("mobile", mobile);
                         startActivity(intent);
                     }
                     else {
-                        Toast.makeText(LoginActivity.this, "USER NOT REGISTETRED", Toast.LENGTH_SHORT).show();
+                        Toast.makeText(LoginActivity.this, "USER NOT REGISTERED", Toast.LENGTH_SHORT).show();
                     }
                 }
             }

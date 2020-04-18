@@ -1,43 +1,29 @@
 <?xml version="1.0" encoding="utf-8"?>
-<navigation xmlns:android="http://schemas.android.com/apk/res/android"
+<navigation
+    xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/mobile_navigation"
-    app:startDestination="@+id/nav_home">
-
+    app:startDestination="@id/dashboardFragment">
     <fragment
-        android:id="@+id/nav_home"
-        android:name="dev.ishmin.srpos.ui.sales.SalesFragment"
-        android:label="@string/menu_home"
-        tools:layout="@layout/fragment_sales">
-
-        <action
-            android:id="@+id/action_HomeFragment_to_HomeSecondFragment"
-            app:destination="@id/nav_home_second" />
+        android:id="@+id/dashboardFragment"
+        android:name="dev.ishmin.srpos.Fragments.dashboard.DashboardFragment"
+        android:label="Dashboard" >
     </fragment>
     <fragment
-        android:id="@+id/nav_home_second"
-        android:name="dev.ishmin.srpos.ui.sales.HomeSecondFragment"
-        android:label="@string/home_second"
-        tools:layout="@layout/fragment_home_second">
-        <action
-            android:id="@+id/action_HomeSecondFragment_to_HomeFragment"
-            app:destination="@id/nav_home" />
-
-        <argument
-            android:name="myArg"
-            app:argType="string" />
+        android:id="@+id/billingFragment"
+        android:name="dev.ishmin.srpos.Fragments.billing.BillingFragment"
+        android:label="Billing"
+        tools:layout="@layout/fragment_billing">
     </fragment>
-
     <fragment
-        android:id="@+id/nav_gallery"
-        android:name="dev.ishmin.srpos.ui.purchase.PurchaseFragment"
-        android:label="@string/menu_gallery"
-        tools:layout="@layout/fragment_purchase" />
-
+        android:id="@+id/productsFragment"
+        android:name="dev.ishmin.srpos.Fragments.Products.ProductsFragment"
+        android:label="Products"
+        tools:layout="@layout/fragment_products"/>
     <fragment
-        android:id="@+id/nav_slideshow"
-        android:name="dev.ishmin.srpos.ui.expenses.ExpensesFragment"
-        android:label="@string/menu_slideshow"
-        tools:layout="@layout/fragment_expenses" />
+        android:id="@+id/salesFragment"
+        android:name="dev.ishmin.srpos.Fragments.sales.SalesFragment"
+        android:label="Sales"
+        tools:layout="@layout/fragment_sales"/>
 </navigation>
