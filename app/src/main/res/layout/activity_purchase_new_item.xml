@@ -1,0 +1,142 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".PurchaseNewItem">
+
+    <EditText
+        android:id="@+id/category"
+        android:layout_width="157dp"
+        android:layout_height="80dp"
+        android:layout_marginTop="52dp"
+        android:layout_marginEnd="8dp"
+        android:layout_marginRight="8dp"
+        android:ems="10"
+        android:inputType="textPersonName"
+        android:text="category"
+        app:layout_constraintEnd_toStartOf="@+id/Subcategory"
+        app:layout_constraintTop_toBottomOf="@+id/name" />
+
+    <EditText
+        android:id="@+id/Subcategory"
+        android:layout_width="194dp"
+        android:layout_height="66dp"
+        android:layout_marginEnd="27dp"
+        android:layout_marginRight="27dp"
+        android:ems="10"
+        android:inputType="textPersonName"
+        android:text="Subcategory"
+        app:layout_constraintEnd_toEndOf="parent"
+        tools:layout_editor_absoluteY="152dp" />
+
+    <AutoCompleteTextView
+        android:id="@+id/name"
+        android:layout_width="152dp"
+        android:layout_height="49dp"
+        android:layout_marginTop="36dp"
+        android:completionHint="Select a name"
+        android:text="Name.."
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <EditText
+        android:id="@+id/sku"
+        android:layout_width="150dp"
+        android:layout_height="58dp"
+        android:layout_marginStart="21dp"
+        android:layout_marginLeft="21dp"
+        android:layout_marginTop="49dp"
+        android:ems="10"
+        android:inputType="number"
+        android:text="sku"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/category" />
+
+    <EditText
+        android:id="@+id/buyrate"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="35dp"
+        android:layout_marginEnd="25dp"
+        android:layout_marginRight="25dp"
+        android:ems="10"
+        android:inputType="numberDecimal"
+        android:text="buyrate"
+        app:layout_constraintEnd_toStartOf="@+id/quantity"
+        app:layout_constraintTop_toBottomOf="@+id/sku" />
+
+    <EditText
+        android:id="@+id/mrp"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="23dp"
+        android:layout_marginLeft="23dp"
+        android:layout_marginTop="37dp"
+        android:ems="10"
+        android:inputType="numberDecimal"
+        android:text="mrp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/buyrate" />
+
+    <EditText
+        android:id="@+id/supplier"
+        android:layout_width="238dp"
+        android:layout_height="49dp"
+        android:layout_marginStart="23dp"
+        android:layout_marginLeft="23dp"
+        android:layout_marginTop="33dp"
+        android:ems="10"
+        android:inputType="textPersonName"
+        android:text="supplier"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/mrp" />
+
+    <Button
+        android:id="@+id/purchase"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="47dp"
+        android:layout_marginEnd="176dp"
+        android:layout_marginRight="176dp"
+        android:layout_marginBottom="71dp"
+        android:text="@string/menu_purchase"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/supplier" />
+
+    <EditText
+        android:id="@+id/units"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="17dp"
+        android:layout_marginLeft="17dp"
+        android:layout_marginTop="50dp"
+        android:ems="10"
+        android:inputType="number"
+        android:text="units"
+        app:layout_constraintStart_toEndOf="@+id/sku"
+        app:layout_constraintTop_toBottomOf="@+id/Subcategory" />
+
+    <EditText
+        android:id="@+id/quantity"
+        android:layout_width="124dp"
+        android:layout_height="57dp"
+        android:layout_marginStart="26dp"
+        android:layout_marginLeft="26dp"
+        android:layout_marginTop="47dp"
+        android:ems="10"
+        android:inputType="number"
+        android:text="quantity"
+        app:layout_constraintStart_toEndOf="@+id/buyrate"
+        app:layout_constraintTop_toBottomOf="@+id/units" />
+
+    <AutoCompleteTextView
+        android:id="@+id/brand"
+        android:layout_width="149dp"
+        android:layout_height="55dp"
+        android:completionHint="brand"
+        android:text="brand"
+        tools:layout_editor_absoluteX="205dp"
+        tools:layout_editor_absoluteY="30dp" />
+</androidx.constraintlayout.widget.ConstraintLayout>
