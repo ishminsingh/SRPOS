@@ -25,5 +25,25 @@
         tools:ignore="HardcodedText">
     </TextView>
 </LinearLayout>
-
+    <RelativeLayout
+        android:id="@+id/layMid"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_below="@id/layTop"
+        android:layout_marginTop="0dp"
+        android:padding="10dp">
+        <EditText
+            android:id="@+id/nameEt"
+            android:background="@drawable/btn_shape2"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:inputType="text|textAutoComplete"
+            android:hint="Product name"
+            android:textColor="@android:color/black"
+            android:textAllCaps="false"
+            android:textStyle="normal"
+            android:textColorHint="@color/gd1"
+            android:textAlignment="textStart"
+            android:gravity="start" />
+    </RelativeLayout>
 </RelativeLayout>
