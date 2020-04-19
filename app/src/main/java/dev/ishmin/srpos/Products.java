@@ -57,16 +57,16 @@ public class Products extends AppCompatActivity {
             {
                 Cursor c = MainActivity.SRPOS.rawQuery("SELECT * FROM Products ", null);
                 int name = c.getColumnIndex("name");
-                int category = c.getColumnIndex("category");
-                int subcategory = c.getColumnIndex("subcategory");
+                //int category = c.getColumnIndex("category");
+                //int subcategory = c.getColumnIndex("subcategory");
                 int brand = c.getColumnIndex("brand");
-                int sku = c.getColumnIndex("sku");
+                int stock = c.getColumnIndex("stock");
                 c.moveToFirst();
 
                 while (!c.isAfterLast()) {
                     //Log.i("name", c.getString(name));
                     //Log.i("sku", c.getString(sku));
-                    String newitem=c.getString(name)+" "+c.getString(sku);
+                    String newitem=c.getString(name)+"     "+c.getString(brand)+"     "+c.getInt(stock);
                     productlist.add(newitem);
                     arrayAdapter.notifyDataSetChanged();
 
@@ -101,19 +101,19 @@ public class Products extends AppCompatActivity {
                     if(!search.getText().equals(""))
                     {
                     Cursor c = MainActivity.SRPOS.rawQuery("SELECT * FROM Products WHERE name='"+search.getText().toString()+"'", null);
-                    int name = c.getColumnIndex("name");
-                    int category = c.getColumnIndex("category");
-                    int subcategory = c.getColumnIndex("subcategory");
-                    int brand = c.getColumnIndex("brand");
-                    int sku = c.getColumnIndex("sku");
-                    c.moveToFirst();
+                        int name = c.getColumnIndex("name");
+                        //int category = c.getColumnIndex("category");
+                        //int subcategory = c.getColumnIndex("subcategory");
+                        int brand = c.getColumnIndex("brand");
+                        int stock = c.getColumnIndex("stock");
+                        c.moveToFirst();
 
-                    while (!c.isAfterLast()) {
-                        //Log.i("name", c.getString(name));
-                        //Log.i("sku", c.getString(sku));
-                        String newitem=c.getString(name)+" "+c.getString(sku);
-                        productlist.add(newitem);
-                        arrayAdapter.notifyDataSetChanged();
+                        while (!c.isAfterLast()) {
+                            //Log.i("name", c.getString(name));
+                            //Log.i("sku", c.getString(sku));
+                            String newitem=c.getString(name)+"     "+c.getString(brand)+"     "+c.getInt(stock);
+                            productlist.add(newitem);
+                            arrayAdapter.notifyDataSetChanged();
 
                       }
                     }
@@ -121,19 +121,18 @@ public class Products extends AppCompatActivity {
                         {
                             Cursor c = MainActivity.SRPOS.rawQuery("SELECT * FROM Products ", null);
                             int name = c.getColumnIndex("name");
-                            int category = c.getColumnIndex("category");
-                            int subcategory = c.getColumnIndex("subcategory");
+                            //int category = c.getColumnIndex("category");
+                            //int subcategory = c.getColumnIndex("subcategory");
                             int brand = c.getColumnIndex("brand");
-                            int sku = c.getColumnIndex("sku");
+                            int stock = c.getColumnIndex("stock");
                             c.moveToFirst();
 
                             while (!c.isAfterLast()) {
                                 //Log.i("name", c.getString(name));
                                 //Log.i("sku", c.getString(sku));
-                                String newitem=c.getString(name)+" "+c.getString(sku);
+                                String newitem=c.getString(name)+"     "+c.getString(brand)+"     "+c.getInt(stock);
                                 productlist.add(newitem);
                                 arrayAdapter.notifyDataSetChanged();
-
                             }
                         }
 
@@ -152,32 +151,6 @@ public class Products extends AppCompatActivity {
 
             }
         });
-                    try {
-
-                      //  MainActivity.SRPOS.execSQL("CREATE TABLE IF NOT EXISTS Products(id INTEGER PRIMARY KEY, name VARCHAR ,category VARCHAR, subcategory VARCHAR, brand VARCHAR ,sku INT,buyrate FLOAT,mrp , FLOAT,supplier VARCHAR,unit VARCHAR )");
-                        //MainActivity.SRPOS.execSQL("INSERT INTO Products(name,category,subcategory,brand,sku,buyrate, mrp,supplier,unit)VALUES()");
-
-                        Cursor c = MainActivity.SRPOS.rawQuery("SELECT * FROM Products", null);
-                        int name = c.getColumnIndex("name");
-                        int category = c.getColumnIndex("category");
-                        int subcategory = c.getColumnIndex("subcategory");
-                        int brand = c.getColumnIndex("brand");
-                        int sku = c.getColumnIndex("sku");
-                        c.moveToFirst();
-
-                        while (!c.isAfterLast()) {
-                            //Log.i("name", c.getString(name));
-                            //Log.i("sku", c.getString(sku));
-                            String newitem=c.getString(name)+" "+c.getString(sku);
-                            productlist.add(newitem);
-                            arrayAdapter.notifyDataSetChanged();
-
-                        }
-                    }
-                    catch (Exception e)
-                    {
-                        e.printStackTrace();
-                    }
 
 
 
