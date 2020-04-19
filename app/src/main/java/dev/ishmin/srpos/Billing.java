@@ -35,7 +35,7 @@ public class Billing extends AppCompatActivity {
     List<String> productlist;
     ListView billing;
     ArrayAdapter<String> arrayAdapter;
-    String sku;
+     String sku;
     int index;
     List<String> productname = new ArrayList<String>();
     List<String> productcategory = new ArrayList<String>();
@@ -111,7 +111,7 @@ public class Billing extends AppCompatActivity {
             @Override
             public void onClick(View v) {
 
-                //sku=entry.getText().toString();
+                sku="";
                 if(productsku.contains(sku))
                 {
                     index = productsku.indexOf(sku);
@@ -130,36 +130,30 @@ public class Billing extends AppCompatActivity {
 
                     String update = tempname + "  "+quantity+"  " + Float.toString(tempMRP);
 
+                    productlist.set(index,update);
+                    arrayAdapter.notifyDataSetChanged();
+
                    /* String tempproduct=productlist.get(index);
                     String[] split= tempproduct.split("\\s");
                     Log.i("splitting",split[1]);
                     tempMRP+=Integer.parseInt(split[1]);
                     String update=split[0]+(Float.toString(tempMRP));*/
-
-                    productlist.set(index,update);
-                    arrayAdapter.notifyDataSetChanged();
                 }
 
-                else
-                {
-
-
-                       /* String myUrl = "http://smartretailpos.pe.hu/api/products.php?sku=" + sku;
-                        String returned;
-                        Connection connection = new Connection();
-                        returned = connection.execute(myUrl).get();*/
+                else {
                     try {
-                        Cursor c = MainActivity.SRPOS.rawQuery("SELECT * FROM Products WHERE sku="+sku, null);
+                        Cursor c =MainActivity.SRPOS.rawQuery("SELECT * FROM Products WHERE sku="+sku, null);
+
+
                         int name = c.getColumnIndex("name");
                         int category = c.getColumnIndex("category");
                         int subcategory = c.getColumnIndex("subcategory");
                         int brand = c.getColumnIndex("brand");
                         int mrp = c.getColumnIndex("mrp");
                         int sku = c.getColumnIndex("sku");
-                        int quantity = c.getColumnIndex("quantity");
                         int supplier = c.getColumnIndex("supplier");
                         int unit = c.getColumnIndex("unit");
-                        int buyrate=c.getColumnIndex("buyrate");
+                        int buyrate = c.getColumnIndex("buyrate");
 
                         c.moveToFirst();
 
@@ -178,7 +172,7 @@ public class Billing extends AppCompatActivity {
 
                             productquantity.add("1");
                             total += c.getFloat(mrp);
-                            String newitem = c.getString(name) +"  1   "+  Float.toString(c.getFloat(mrp));
+                            String newitem = c.getString(name) + "  1   " + Float.toString(c.getFloat(mrp));
                             productlist.add(newitem);
                             arrayAdapter.notifyDataSetChanged();
                             c.moveToNext();
@@ -188,7 +182,7 @@ public class Billing extends AppCompatActivity {
 
 
                     } catch (Exception e) {
-                        Toast.makeText(Billing.this,"not scanned",Toast.LENGTH_SHORT).show();
+                        Toast.makeText(Billing.this, "not scanned", Toast.LENGTH_SHORT).show();
                         Log.i("Exception", e.getMessage());
                     }
                 }
