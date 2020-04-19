@@ -32,19 +32,19 @@ public class PurchaseNewItem extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_purchase_new_item);
-        name=findViewById(R.id.name);
-         brand=findViewById(R.id.brand);
-        category=findViewById(R.id.category);
-         subcategory=findViewById(R.id.Subcategory);
-         sku=findViewById(R.id.sku);
-         buyrate=findViewById(R.id.buyrate);
-         mrp=findViewById(R.id.mrp);
-         units=findViewById(R.id.units);
-         quantity=findViewById(R.id.quantity);
-         supplier=findViewById(R.id.supplier);
-         purchase=findViewById(R.id.purchase);
-Button scanner=findViewById(R.id.scanner);
- flag=0;
+        name = findViewById(R.id.name);
+        brand = findViewById(R.id.brand);
+        category = findViewById(R.id.category);
+        subcategory = findViewById(R.id.Subcategory);
+        sku = findViewById(R.id.sku);
+        buyrate = findViewById(R.id.buyrate);
+        mrp = findViewById(R.id.mrp);
+        units = findViewById(R.id.units);
+        quantity = findViewById(R.id.quantity);
+        supplier = findViewById(R.id.supplier);
+        purchase = findViewById(R.id.purchase);
+        Button scanner = findViewById(R.id.scanner);
+        flag = 0;
 
 
         try {

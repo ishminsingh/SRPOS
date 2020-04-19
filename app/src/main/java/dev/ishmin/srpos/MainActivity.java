@@ -32,7 +32,7 @@ public class MainActivity extends AppCompatActivity {
     private DrawerLayout drawer;
     private NavigationView navigationView;
     private NavController navController;
-    static SQLiteDatabase SRPOS;
+    public static SQLiteDatabase SRPOS;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {

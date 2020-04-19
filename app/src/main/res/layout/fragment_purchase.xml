@@ -1,16 +1,29 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout xmlns:tools="http://schemas.android.com/tools"
+<RelativeLayout
+    android:id="@+id/layMain"
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    xmlns:android="http://schemas.android.com/apk/res/android">
-<!--    <TextView-->
-<!--        android:layout_width="match_parent"-->
-<!--        android:layout_height="wrap_content"-->
-<!--        android:text="This is Purchase Fragment"-->
-<!--        android:textSize="12sp"-->
-<!--        android:textStyle="bold"-->
-<!--        android:textAlignment="center"-->
-<!--        android:gravity="center_horizontal"-->
-<!--        android:layout_centerInParent="true"-->
-<!--        tools:ignore="HardcodedText" />-->
+    android:layout_height="match_parent">
+<LinearLayout
+    android:id="@+id/layTop"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:orientation="horizontal"
+    android:padding="10dp">
+    <TextView
+        android:id="@+id/text0"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Stock up new items"
+        android:textSize="12sp"
+        android:textColor="@android:color/black"
+        android:textStyle="normal"
+        android:textAllCaps="false"
+        android:textAlignment="center"
+        android:gravity="center_horizontal"
+        tools:ignore="HardcodedText">
+    </TextView>
+</LinearLayout>
+
 </RelativeLayout>

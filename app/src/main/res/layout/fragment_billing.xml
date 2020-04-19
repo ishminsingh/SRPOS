@@ -1,34 +1,94 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout
+    android:id="@+id/layMain"
     xmlns:tools="http://schemas.android.com/tools"
+    xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    xmlns:android="http://schemas.android.com/apk/res/android">
-
-    <me.dm7.barcodescanner.zxing.ZXingScannerView
-        android:id="@+id/zxScan"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent">
-
-
-    </me.dm7.barcodescanner.zxing.ZXingScannerView>
-    <ListView
+    android:layout_height="match_parent">
+    <RelativeLayout
+        android:id="@+id/layTop"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-
-        />
-    <!--    <ImageButton-->
-<!--        android:clickable="true"-->
-<!--        android:id="@+id/scanner"-->
-<!--        android:layout_width="wrap_content"-->
-<!--        android:layout_height="wrap_content"-->
-<!--        android:background="@android:color/transparent"-->
-<!--        android:src="@drawable/barcode1"-->
-<!--        android:contentDescription="barCodeScanner"-->
-<!--        tools:ignore="HardcodedText"-->
-<!--        android:layout_alignParentBottom="true"-->
-<!--        android:layout_alignParentRight="true"-->
-<!--        android:layout_alignParentEnd="true"-->
-<!--        android:focusable="true">-->
-<!--    </ImageButton>-->
+        android:padding="10dp">
+        <Button
+            android:id="@+id/totalbutton"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:background="@drawable/btn_shape3"
+            android:text="@string/totalTxt"
+            android:textSize="12sp"
+            android:textStyle="normal"
+            android:textAllCaps="false"
+            android:textColor="@android:color/white"
+            android:layout_alignParentLeft="true"
+            android:layout_alignParentStart="true"
+            android:clickable="true"
+            android:focusable="true" />
+        <Button
+            android:id="@+id/payment"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:background="@drawable/btn_shape3"
+            android:text="Payment"
+            android:textSize="12sp"
+            android:textStyle="normal"
+            android:textAllCaps="false"
+            android:textColor="@android:color/white"
+            android:layout_centerHorizontal="true"
+            android:clickable="true"
+            android:focusable="true"
+            tools:ignore="HardcodedText"/>
+        <Button
+            android:id="@+id/scanner"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:background="@drawable/btn_shape3"
+            android:text="@string/scanTxt"
+            android:textSize="12sp"
+            android:textStyle="normal"
+            android:textAllCaps="false"
+            android:textColor="@android:color/white"
+            android:layout_alignParentRight="true"
+            android:layout_alignParentEnd="true"
+            android:clickable="true"
+            android:focusable="true"
+            tools:ignore="RelativeOverlap" />
+    </RelativeLayout>
+   <RelativeLayout
+       android:id="@+id/layEnd"
+       android:layout_width="match_parent"
+       android:layout_height="wrap_content"
+       android:layout_alignParentBottom="true"
+       android:padding="10dp">
+       <TextView
+           android:id="@+id/totaldisplay"
+           android:layout_width="match_parent"
+           android:layout_height="wrap_content"
+           android:gravity="center_horizontal"
+           android:text="The total is = "
+           android:textSize="16sp"
+           android:textStyle="bold|normal"
+           android:textAllCaps="false"
+           android:textAlignment="center"
+           android:textColor="@android:color/black"
+           tools:ignore="HardcodedText"/>
+   </RelativeLayout>
+    <ListView
+        android:visibility="visible"
+        android:id="@+id/billinglist"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_above="@id/layEnd"
+        android:layout_below="@id/layTop"
+        android:layout_marginTop="0dp"
+        android:padding="8sp" />
+    <TextView
+        android:visibility="invisible"
+        android:id="@+id/txtView"
+        android:layout_below="@id/layTop"
+        android:layout_centerHorizontal="true"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="result"
+        tools:ignore="HardcodedText" />
 </RelativeLayout>
