@@ -109,7 +109,7 @@ scanner.setOnClickListener(new View.OnClickListener() {
         try {
 
             //scannerresult=
-                        Cursor c = MainActivity.SRPOS.rawQuery("SELECT * FROM Products WHERE sku="+sku, null);
+            Cursor c = MainActivity.SRPOS.rawQuery("SELECT * FROM Products WHERE sku="+sku, null);
             int name2 = c.getColumnIndex("name");
             int category2 = c.getColumnIndex("category");
             int subcategory2 = c.getColumnIndex("subcategory");
@@ -150,7 +150,15 @@ scanner.setOnClickListener(new View.OnClickListener() {
     }
 });
 
-        /*
+
+
+    }
+}
+
+
+
+
+  /*
         try {
 
             MainActivity.SRPOS.execSQL("CREATE TABLE IF NOT EXISTS PurchasedItems(id INTEGER PRIMARY KEY, name VARCHAR ,category VARCHAR, subcategory VARCHAR, brand VARCHAR ,sku INTEGER,buyrate FLOAT,mrp FLOAT,supplier VARCHAR,unit VARCHAR,quantity INTEGER,date DATE )");
@@ -167,6 +175,3 @@ scanner.setOnClickListener(new View.OnClickListener() {
         {
             e.printStackTrace();
         }*/
-
-    }
-}
