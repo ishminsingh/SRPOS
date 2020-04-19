@@ -26,6 +26,8 @@ public class PurchaseNewItem extends AppCompatActivity {
     EditText quantity;
     EditText supplier;
     Button purchase;
+    String scannerresult;
+    int flag;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -42,6 +44,8 @@ public class PurchaseNewItem extends AppCompatActivity {
          supplier=findViewById(R.id.supplier);
          purchase=findViewById(R.id.purchase);
 Button scanner=findViewById(R.id.scanner);
+ flag=0;
+
 
         try {
 
@@ -72,9 +76,19 @@ Button scanner=findViewById(R.id.scanner);
                 if(name1.length()>0&&brand1.length()>0&&category1.length()>0&&subcategory1.length()>0&&sku1.length()>0&&buyrate1.length()>0&&mrp1.length()>0&&units1.length()>0&&quantity1.length()>0&&supplier1.length()>0)
                     {
                        try {
+
                            String date = new SimpleDateFormat("yyyy-MM-dd", Locale.getDefault()).format(new Date());
-                           MainActivity.SRPOS.execSQL("INSERT INTO PurchasedItems(name,category,subcategory,brand,sku,buyrate, mrp,supplier,unit,quantiy,date)VALUES('" + name1 + "','" + category1 + "','" + subcategory1 + "'," + sku1 + "," + buyrate1 + "," + mrp1 + ",'" + supplier1 + "','" + units1 + "'," + quantity1 + ",'"+date+"')");
-                            MainActivity.SRPOS.execSQL("INSERT INTO Products(name,category,subcategory,brand,sku,buyrate, mrp,supplier,unit,quantiy)VALUES('" + name1 + "','" + category1 + "','" + subcategory1 + "'," + sku1 + "," + buyrate1 + "," + mrp1 + ",'" + supplier1 + "','" + units1 + "'," + quantity1 + ")");
+                           MainActivity.SRPOS.execSQL("INSERT INTO PurchasedItems(name,category,subcategory,brand,sku,buyrate, mrp,supplier,unit,quantiy,date)VALUES('" + name1 + "','" + category1 + "','" + subcategory1 + "'," + Integer.parseInt(sku1) + "," + Float.parseFloat(buyrate1) + "," +Float.parseFloat(mrp1)+ ",'" + supplier1 + "','" + units1 + "'," + Integer.parseInt(quantity1) + ",'"+date+"')");
+                          if (flag==1)
+                            MainActivity.SRPOS.execSQL("INSERT INTO Products(name,category,subcategory,brand,sku,buyrate, mrp,supplier,unit,stock)VALUES('" + name1 + "','" + category1 + "','" + subcategory1 + "'," +Integer.parseInt(sku1) + "," + Float.parseFloat(buyrate1) + "," + Float.parseFloat(mrp1) + ",'" + supplier1 + "','" + units1 + "'," + Integer.parseInt(quantity1)+ ")");
+                           else
+                          {
+                              Cursor c = MainActivity.SRPOS.rawQuery("SELECT stock FROM Products WHERE sku="+scannerresult, null);
+                              int quantity2 = c.getColumnIndex("stock");
+                              int stock=c.getInt(quantity2);
+                              int newstock =stock + Integer.parseInt(quantity1);
+                              MainActivity.SRPOS.execSQL("UPADTE Products SET stock= "+newstock+" WHERE sku="+sku );
+                          }
 
 
                        }
@@ -82,6 +96,7 @@ Button scanner=findViewById(R.id.scanner);
                        {
                            e.printStackTrace();
                        }
+                    flag=0;
                 }
 
             }
@@ -92,14 +107,16 @@ scanner.setOnClickListener(new View.OnClickListener() {
     @Override
     public void onClick(View v) {
         try {
-            Cursor c = MainActivity.SRPOS.rawQuery("SELECT * FROM Products WHERE sku="+sku, null);
+
+            //scannerresult=
+                        Cursor c = MainActivity.SRPOS.rawQuery("SELECT * FROM Products WHERE sku="+sku, null);
             int name2 = c.getColumnIndex("name");
             int category2 = c.getColumnIndex("category");
             int subcategory2 = c.getColumnIndex("subcategory");
             int brand2 = c.getColumnIndex("brand");
             int mrp2 = c.getColumnIndex("mrp");
             int sku2 = c.getColumnIndex("sku");
-            int quantity2 = c.getColumnIndex("quantity");
+
             int supplier2 = c.getColumnIndex("supplier");
             int unit2 = c.getColumnIndex("unit");
             int buyrate2=c.getColumnIndex("buyrate");
@@ -123,6 +140,7 @@ scanner.setOnClickListener(new View.OnClickListener() {
 
             }
 
+            flag=1;
 
         } catch (Exception e) {
             Toast.makeText(PurchaseNewItem.this,"not scanned",Toast.LENGTH_SHORT).show();
