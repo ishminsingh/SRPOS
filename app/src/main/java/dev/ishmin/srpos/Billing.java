@@ -67,7 +67,7 @@ public class Billing extends AppCompatActivity {
         totalbutton=findViewById(R.id.totalbutton);
         totalview=findViewById(R.id.totaldisplay);
         scanner=findViewById(R.id.scanner);
-          final Button payment=findViewById(R.id.payment);
+        final Button payment=findViewById(R.id.payment);
 
           payment.setOnClickListener(new View.OnClickListener() {
               @Override
