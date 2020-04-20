@@ -72,7 +72,7 @@ public class Billing extends AppCompatActivity {
           payment.setOnClickListener(new View.OnClickListener() {
               @Override
               public void onClick(View v) {
-                  //payment activity.
+                  //Payment activity.
 
                  MainActivity.SRPOS.execSQL("CREATE TABLE IF NOT EXISTS Sales(billid INTEGER PRIMARY KEY, customerno INT(10) ,date DATE,billamount FLOAT,discount FLOAT, status VARCHAR)");
                   MainActivity.SRPOS.execSQL("CREATE TABLE IF NOT EXISTS Solditems(id INTEGER PRIMARY KEY, name VARCHAR ,mrp FLOAT,  quantity INTEGER,unit VARCHAR,date DATE)");
@@ -83,7 +83,7 @@ public class Billing extends AppCompatActivity {
 
 
                   }
-                 // Intent intent=new Intent(Billing.this, dev.ishmin.srpos.payment.class);
+                 // Intent intent=new Intent(Billing.this, dev.ishmin.srpos.Payment.class);
                   //startActivity(intent);
               }
           });

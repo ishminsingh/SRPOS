@@ -14,13 +14,14 @@ import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.Locale;
 
-public class payment extends AppCompatActivity {
+public class Payment extends AppCompatActivity {
 
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_payment);
+        setContentView(R.layout.activity_billing);
+        Bundle bundle = getIntent().getExtras();
 
         final EditText cno =findViewById(R.id.cno);
         final EditText discount =findViewById(R.id.discout);
@@ -46,7 +47,7 @@ public class payment extends AppCompatActivity {
                     }
                 }
                 else {
-                    Toast.makeText(payment.this, "invalid entry", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(Payment.this, "invalid entry", Toast.LENGTH_SHORT).show();
                 }
 
             }

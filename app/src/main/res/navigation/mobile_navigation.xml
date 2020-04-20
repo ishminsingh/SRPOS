@@ -26,4 +26,8 @@
         android:name="dev.ishmin.srpos.Fragments.sales.SalesFragment"
         android:label="Sales"
         tools:layout="@layout/fragment_sales"/>
+    <fragment
+        android:id="@+id/purchaseFragment"
+        android:name="dev.ishmin.srpos.Fragments.purchase.PurchaseFragment"
+        android:label="Purchase" />
 </navigation>

@@ -23,6 +23,7 @@ import java.util.List;
 import java.util.Locale;
 
 import dev.ishmin.srpos.MainActivity;
+import dev.ishmin.srpos.Payment;
 import dev.ishmin.srpos.R;
 import dev.ishmin.srpos.ScannerActivity;
 
@@ -64,12 +65,14 @@ public class BillingFragment extends Fragment {
         totalview = v.findViewById(R.id.totaldisplay);
         qscanner = v.findViewById(R.id.scanner);
 
-        final Button payment = v.findViewById(R.id.payment);
+        Button payment = v.findViewById(R.id.payment);
 
         payment.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                //payment activity.
+                //Payment activity.
+                Intent intent = new Intent(getActivity(), Payment.class);
+                startActivity(intent);
 
                 MainActivity.SRPOS.execSQL("CREATE TABLE IF NOT EXISTS Sales(billid INTEGER PRIMARY KEY, customerno INT(10) ,date DATE,billamount FLOAT,discount FLOAT, status VARCHAR)");
                 MainActivity.SRPOS.execSQL("CREATE TABLE IF NOT EXISTS Solditems(id INTEGER PRIMARY KEY, name VARCHAR ,mrp FLOAT,  quantity INTEGER,unit VARCHAR,date DATE)");
@@ -80,7 +83,7 @@ public class BillingFragment extends Fragment {
 
 
                 }
-                // Intent intent=new Intent(Billing.this, dev.ishmin.srpos.payment.class);
+                // Intent intent=new Intent(Billing.this, dev.ishmin.srpos.Payment.class);
                 //startActivity(intent);
             }
         });
@@ -101,8 +104,8 @@ public class BillingFragment extends Fragment {
         qscanner.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent i = new Intent(getActivity(), ScannerActivity.class); //open scanner
-                startActivity(i);
+                Intent intent1 = new Intent(getActivity(), ScannerActivity.class); //open scanner
+                startActivity(intent1);
 
                 sku = textView.getText().toString();
 

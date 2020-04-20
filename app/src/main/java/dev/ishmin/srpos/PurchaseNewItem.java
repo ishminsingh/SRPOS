@@ -103,7 +103,7 @@ public class PurchaseNewItem extends AppCompatActivity {
         });
 
 
-scanner.setOnClickListener(new View.OnClickListener() {
+        scanner.setOnClickListener(new View.OnClickListener() {
     @Override
     public void onClick(View v) {
         try {
