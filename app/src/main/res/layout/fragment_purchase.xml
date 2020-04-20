@@ -34,7 +34,7 @@
         android:layout_marginTop="10dp"
         android:padding="10dp">
         <EditText
-            android:background="@drawable/edit_text_shape"
+
             android:id="@+id/category"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
@@ -45,11 +45,11 @@
             android:textAlignment="center"
             android:textAllCaps="false"
             android:textColor="@android:color/black"
-            android:textColorHint="@android:color/white"
+            android:textColorHint="@android:color/black"
             android:textStyle="normal"
             tools:ignore="HardcodedText,RtlCompat" />
         <EditText
-        android:background="@drawable/edit_text_shape"
+
         android:id="@+id/Subcategory"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
@@ -60,12 +60,12 @@
         android:textAlignment="center"
         android:textAllCaps="false"
         android:textColor="@android:color/black"
-        android:textColorHint="@android:color/white"
+        android:textColorHint="@android:color/black"
         android:textStyle="normal"
         android:layout_below="@id/category"
         tools:ignore="HardcodedText,RtlCompat" />
         <EditText
-            android:background="@drawable/edit_text_shape"
+
             android:id="@+id/supplier"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
@@ -76,12 +76,12 @@
             android:textAlignment="center"
             android:textAllCaps="false"
             android:textColor="@android:color/black"
-            android:textColorHint="@android:color/white"
+            android:textColorHint="@android:color/black"
             android:textStyle="normal"
             android:layout_below="@id/Subcategory"
             tools:ignore="HardcodedText,RtlCompat" />
         <EditText
-            android:background="@drawable/edit_text_shape"
+
             android:id="@+id/name"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
@@ -92,12 +92,12 @@
             android:textAlignment="center"
             android:textAllCaps="false"
             android:textColor="@android:color/black"
-            android:textColorHint="@android:color/white"
+            android:textColorHint="@android:color/black"
             android:textStyle="normal"
             android:layout_below="@id/supplier"
             tools:ignore="HardcodedText,RtlCompat" />
         <EditText
-            android:background="@drawable/edit_text_shape"
+
             android:id="@+id/brand"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
@@ -108,12 +108,12 @@
             android:textAlignment="center"
             android:textAllCaps="false"
             android:textColor="@android:color/black"
-            android:textColorHint="@android:color/white"
+            android:textColorHint="@android:color/black"
             android:textStyle="normal"
             android:layout_below="@id/name"
             tools:ignore="HardcodedText,RtlCompat" />
         <EditText
-            android:background="@drawable/edit_text_shape"
+
             android:id="@+id/quantity"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
@@ -124,12 +124,12 @@
             android:textAlignment="center"
             android:textAllCaps="false"
             android:textColor="@android:color/black"
-            android:textColorHint="@android:color/white"
+            android:textColorHint="@android:color/black"
             android:textStyle="normal"
             android:layout_below="@id/brand"
             tools:ignore="HardcodedText,RtlCompat" />
         <EditText
-            android:background="@drawable/edit_text_shape"
+
             android:id="@+id/units"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
@@ -140,14 +140,14 @@
             android:textAlignment="center"
             android:textAllCaps="false"
             android:textColor="@android:color/black"
-            android:textColorHint="@android:color/white"
+            android:textColorHint="@android:color/black"
             android:textStyle="normal"
             android:layout_below="@id/brand"
             android:layout_alignParentEnd="true"
             android:layout_alignParentRight="true"
             tools:ignore="HardcodedText,RtlCompat" />
         <EditText
-            android:background="@drawable/edit_text_shape"
+
             android:id="@+id/buyrate"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
@@ -158,12 +158,12 @@
             android:textAlignment="center"
             android:textAllCaps="false"
             android:textColor="@android:color/black"
-            android:textColorHint="@android:color/white"
+            android:textColorHint="@android:color/black"
             android:textStyle="normal"
             android:layout_below="@id/quantity"
             tools:ignore="HardcodedText,RtlCompat"/>
         <EditText
-            android:background="@drawable/edit_text_shape"
+
             android:id="@+id/mrp"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
@@ -174,14 +174,14 @@
             android:textAlignment="center"
             android:textAllCaps="false"
             android:textColor="@android:color/black"
-            android:textColorHint="@android:color/white"
+            android:textColorHint="@android:color/black"
             android:textStyle="normal"
             android:layout_below="@id/units"
             android:layout_alignParentEnd="true"
             android:layout_alignParentRight="true"
             tools:ignore="HardcodedText,RtlCompat"/>
         <EditText
-            android:background="@drawable/edit_text_shape"
+
             android:id="@+id/sku"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
@@ -193,7 +193,7 @@
             android:textAlignment="center"
             android:textAllCaps="false"
             android:textColor="@android:color/black"
-            android:textColorHint="@android:color/white"
+            android:textColorHint="@android:color/black"
             android:textStyle="normal"
             android:layout_marginBottom="8dp"
             tools:ignore="HardcodedText,RtlCompat" />

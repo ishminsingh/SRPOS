@@ -40,8 +40,8 @@ public class ProductsFragment extends Fragment {
         arrayAdapter = new ArrayAdapter<String>(getActivity(), android.R.layout.simple_list_item_1, productlist);
         products.setAdapter(arrayAdapter);
         final EditText search = v.findViewById(R.id.search);
-        try
 
+        try
 
         {
             Cursor c = MainActivity.SRPOS.rawQuery("SELECT * FROM Products ", null);

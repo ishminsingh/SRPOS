@@ -1,5 +1,6 @@
 package dev.ishmin.srpos.Fragments.purchase;
 
+import android.content.Intent;
 import android.database.Cursor;
 import android.os.Bundle;
 import android.util.Log;
@@ -17,9 +18,11 @@ import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.Locale;
 
+import dev.ishmin.srpos.Fragments.billing.BillingFragment;
 import dev.ishmin.srpos.MainActivity;
 import dev.ishmin.srpos.PurchaseNewItem;
 import dev.ishmin.srpos.R;
+import dev.ishmin.srpos.ScannerActivity;
 
 public class PurchaseFragment extends Fragment {
     EditText name;
@@ -33,13 +36,57 @@ public class PurchaseFragment extends Fragment {
     EditText quantity;
     EditText supplier;
     Button purchase;
-    String scannerresult;
+    public static String scannerresult;
     int flag;
+
+    public void scanner()
+    {
+        try{
+
+            Cursor c = MainActivity.SRPOS.rawQuery("SELECT * FROM Products WHERE sku="+scannerresult, null);
+        int name2 = c.getColumnIndex("name");
+        int category2 = c.getColumnIndex("category");
+        int subcategory2 = c.getColumnIndex("subcategory");
+        int brand2 = c.getColumnIndex("brand");
+        int mrp2 = c.getColumnIndex("mrp");
+        int sku2 = c.getColumnIndex("sku");
+
+        int supplier2 = c.getColumnIndex("supplier");
+        int unit2 = c.getColumnIndex("unit");
+        int buyrate2=c.getColumnIndex("buyrate");
+
+        c.moveToFirst();
+
+        while (!c.isAfterLast()) {
+
+            name.setText(c.getString(name2));
+            category.setText(c.getString(category2));
+            subcategory.setText(c.getString(subcategory2));
+            brand.setText(c.getString(brand2));
+            mrp.setText(Float.toString(c.getFloat(mrp2)));
+            sku.setText(Integer.toString(c.getInt(sku2)));
+            supplier.setText(c.getString(supplier2));
+            units.setText(Integer.toString(c.getInt(unit2)));
+            buyrate.setText(Float.toString(c.getFloat(buyrate2)));
+
+            c.moveToNext();
+
+
+        }
+
+        flag=1;
+
+    } catch (Exception e) {
+        Toast.makeText(getActivity(),"not scanned",Toast.LENGTH_SHORT).show();
+        Log.i("Exception", e.getMessage());
+    }
+
+    }
 
     public View onCreateView(@NonNull LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         View v =  inflater.inflate(R.layout.fragment_purchase, container, false);
 
-
+BillingFragment.flag1=0;
         name = v.findViewById(R.id.name);
         brand = v.findViewById(R.id.brand);
         category = v.findViewById(R.id.category);
@@ -86,18 +133,18 @@ public class PurchaseFragment extends Fragment {
                     try {
 
                         String date = new SimpleDateFormat("yyyy-MM-dd", Locale.getDefault()).format(new Date());
-                        MainActivity.SRPOS.execSQL("INSERT INTO PurchasedItems(name,category,subcategory,brand,sku,buyrate, mrp,supplier,unit,quantiy,date)VALUES('" + name1 + "','" + category1 + "','" + subcategory1 + "'," + Integer.parseInt(sku1) + "," + Float.parseFloat(buyrate1) + "," +Float.parseFloat(mrp1)+ ",'" + supplier1 + "','" + units1 + "'," + Integer.parseInt(quantity1) + ",'"+date+"')");
-                        if (flag==1)
-                            MainActivity.SRPOS.execSQL("INSERT INTO Products(name,category,subcategory,brand,sku,buyrate, mrp,supplier,unit,stock)VALUES('" + name1 + "','" + category1 + "','" + subcategory1 + "'," +Integer.parseInt(sku1) + "," + Float.parseFloat(buyrate1) + "," + Float.parseFloat(mrp1) + ",'" + supplier1 + "','" + units1 + "'," + Integer.parseInt(quantity1)+ ")");
+                        MainActivity.SRPOS.execSQL("INSERT INTO PurchasedItems(name,category,subcategory,brand,sku,buyrate, mrp,supplier,unit,quantity,date)VALUES('" + name1 + "','" + category1 + "','" + subcategory1 + "','" + brand1 + "'," + Integer.parseInt(sku1) + "," + Float.parseFloat(buyrate1) + "," +Float.parseFloat(mrp1)+ ",'" + supplier1 + "','" + units1 + "'," + Integer.parseInt(quantity1) + ",'"+date+"')");
+                        if (flag==0)
+                            MainActivity.SRPOS.execSQL("INSERT INTO Products(name,category,subcategory,brand,sku,buyrate, mrp,supplier,unit,stock)VALUES('" + name1 + "','" + category1 + "','" + subcategory1 + "','" + brand1 + "'," +Integer.parseInt(sku1) + "," + Float.parseFloat(buyrate1) + "," + Float.parseFloat(mrp1) + ",'" + supplier1 + "','" + units1 + "'," + Integer.parseInt(quantity1)+ ")");
                         else
                         {
-                            Cursor c = MainActivity.SRPOS.rawQuery("SELECT stock FROM Products WHERE sku="+scannerresult, null);
+                            Cursor c = MainActivity.SRPOS.rawQuery("SELECT stock FROM Products WHERE sku="+Integer.parseInt(scannerresult), null);
                             int quantity2 = c.getColumnIndex("stock");
                             int stock=c.getInt(quantity2);
                             int newstock =stock + Integer.parseInt(quantity1);
-                            MainActivity.SRPOS.execSQL("UPADTE Products SET stock= "+newstock+" WHERE sku="+sku );
+                            MainActivity.SRPOS.execSQL("UPADTE Products SET stock= "+newstock+" WHERE sku="+Integer.parseInt(scannerresult) );
                         }
-
+                         Toast.makeText(getActivity(),"Done",Toast.LENGTH_SHORT).show();
 
                     }
                     catch (Exception e)
@@ -112,48 +159,13 @@ public class PurchaseFragment extends Fragment {
         scanner.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                try {
 
-                    //scannerresult=
-                    Cursor c = MainActivity.SRPOS.rawQuery("SELECT * FROM Products WHERE sku="+sku, null);
-                    int name2 = c.getColumnIndex("name");
-                    int category2 = c.getColumnIndex("category");
-                    int subcategory2 = c.getColumnIndex("subcategory");
-                    int brand2 = c.getColumnIndex("brand");
-                    int mrp2 = c.getColumnIndex("mrp");
-                    int sku2 = c.getColumnIndex("sku");
-
-                    int supplier2 = c.getColumnIndex("supplier");
-                    int unit2 = c.getColumnIndex("unit");
-                    int buyrate2=c.getColumnIndex("buyrate");
-
-                    c.moveToFirst();
-
-                    while (!c.isAfterLast()) {
-
-                        name.setText(c.getString(name2));
-                        category.setText(c.getString(category2));
-                        subcategory.setText(c.getString(subcategory2));
-                        brand.setText(c.getString(brand2));
-                        mrp.setText(Float.toString(c.getFloat(mrp2)));
-                        sku.setText(Integer.toString(c.getInt(sku2)));
-                        supplier.setText(c.getString(supplier2));
-                        units.setText(Integer.toString(c.getInt(unit2)));
-                        buyrate.setText(Float.toString(c.getFloat(buyrate2)));
-
-                        c.moveToNext();
-
-
-                    }
-
-                    flag=1;
-
-                } catch (Exception e) {
-                    Toast.makeText(getActivity(),"not scanned",Toast.LENGTH_SHORT).show();
-                    Log.i("Exception", e.getMessage());
-                }
-
+                Intent i = new Intent(getActivity(), ScannerActivity.class); //open scanner
+                startActivity(i);
+                //scannerresult=
             }
+
+
         });
 
 

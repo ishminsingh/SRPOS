@@ -23,6 +23,7 @@ import java.util.List;
 import java.util.Locale;
 
 import dev.ishmin.srpos.MainActivity;
+import dev.ishmin.srpos.Payment;
 import dev.ishmin.srpos.R;
 import dev.ishmin.srpos.ScannerActivity;
 
@@ -35,6 +36,7 @@ public class BillingFragment extends Fragment {
     public static ListView billing;
     ArrayAdapter<String> arrayAdapter;
      public static String sku;
+     public static int flag1;
 
     int index;
     List<String> productname = new ArrayList<String>();
@@ -90,7 +92,7 @@ public class BillingFragment extends Fragment {
                         Connection connection = new Connection();
                         returned = connection.execute(myUrl).get();*/
             try {
-                Cursor c = MainActivity.SRPOS.rawQuery("SELECT * FROM Products WHERE sku="+sku, null);
+                Cursor c = MainActivity.SRPOS.rawQuery("SELECT * FROM Products WHERE sku="+Integer.parseInt(sku), null);
                 int name = c.getColumnIndex("name");
                 int category = c.getColumnIndex("category");
                 int subcategory = c.getColumnIndex("subcategory");
@@ -137,7 +139,8 @@ public class BillingFragment extends Fragment {
     public View onCreateView(@NonNull LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         View v = inflater.inflate(R.layout.fragment_billing, container, false);
 
-
+        String sku="";
+        flag1=1;
         //textView = v.findViewById(R.id.txtView);
 
         productlist = new ArrayList<String>();
@@ -164,8 +167,8 @@ public class BillingFragment extends Fragment {
 
 
                 }
-                 //Intent intent=new Intent(bi.this, dev.ishmin.srpos.payment.class);
-                //startActivity(intent);
+                Intent i = new Intent(getActivity(), Payment.class); //open scanner
+                startActivity(i);
             }
         });
         totalbutton.setOnClickListener(new View.OnClickListener() {
@@ -185,6 +188,7 @@ public class BillingFragment extends Fragment {
         qscanner.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+
                 Intent i = new Intent(getActivity(), ScannerActivity.class); //open scanner
                 startActivity(i);
 

@@ -16,25 +16,30 @@ import java.util.Locale;
 
 public class Payment extends AppCompatActivity {
 
-
+    Button done;
+     EditText cno ;
+     EditText discount;
+     RadioGroup radio ;
+     RadioButton radioButton=null;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_billing);
         Bundle bundle = getIntent().getExtras();
+        cno =findViewById(R.id.cno);
+        discount =findViewById(R.id.discout);
+        radio = (RadioGroup) findViewById(R.id.radiostaus);
 
-        final EditText cno =findViewById(R.id.cno);
-        final EditText discount =findViewById(R.id.discout);
-        RadioGroup radio = (RadioGroup) findViewById(R.id.radiostaus);
-        int idselected= radio.getCheckedRadioButtonId();
 
-         final RadioButton radioButton= (RadioButton) findViewById(idselected);
-
-        Button done =findViewById(R.id.Done);
+       done =findViewById(R.id.Done);
 
         done.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+
+                int idselected= radio.getCheckedRadioButtonId();
+
+                 radioButton= (RadioButton) findViewById(idselected);
                  String status= (String) radioButton.getText();
                 String date = new SimpleDateFormat("yyyy-MM-dd", Locale.getDefault()).format(new Date());
                 if (cno.getText().toString().length() == 10 && discount.getText().toString().length() > 0)
