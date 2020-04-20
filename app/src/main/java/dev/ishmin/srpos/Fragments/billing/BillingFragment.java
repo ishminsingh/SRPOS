@@ -34,7 +34,8 @@ public class BillingFragment extends Fragment {
     List<String> productlist;
     public static ListView billing;
     ArrayAdapter<String> arrayAdapter;
-    String sku;
+     public static String sku;
+
     int index;
     List<String> productname = new ArrayList<String>();
     List<String> productcategory = new ArrayList<String>();
@@ -52,9 +53,92 @@ public class BillingFragment extends Fragment {
     TextView totalview;
     Button qscanner;
 
+    public  void entry()
+    {
+
+        if(productsku.contains(sku))
+        {
+            index = productsku.indexOf(sku);
+
+            String tempmrp=productmrp.get(index);
+            float tempMRP=Float.parseFloat(tempmrp.trim());
+            total+=tempMRP;
+            String tempname=productname.get(index);
+
+            String tempquantity=productquantity.get(index);
+            int quantity=Integer.parseInt(tempquantity.trim());
+            quantity++;
+            productquantity.set(index,Integer.toString(quantity));
+
+            tempMRP*=quantity;
+
+            String update = tempname + "  "+quantity+"  " + Float.toString(tempMRP);
+
+                   /* String tempproduct=productlist.get(index);
+                    String[] split= tempproduct.split("\\s");
+                    Log.i("splitting",split[1]);
+                    tempMRP+=Integer.parseInt(split[1]);
+                    String update=split[0]+(Float.toString(tempMRP));*/
+
+            productlist.set(index,update);
+            arrayAdapter.notifyDataSetChanged();
+        }
+        else
+        {
+                       /* String myUrl = "http://smartretailpos.pe.hu/api/products.php?sku=" + sku;
+                        String returned;
+                        Connection connection = new Connection();
+                        returned = connection.execute(myUrl).get();*/
+            try {
+                Cursor c = MainActivity.SRPOS.rawQuery("SELECT * FROM Products WHERE sku="+sku, null);
+                int name = c.getColumnIndex("name");
+                int category = c.getColumnIndex("category");
+                int subcategory = c.getColumnIndex("subcategory");
+                int brand = c.getColumnIndex("brand");
+                int mrp = c.getColumnIndex("mrp");
+                int sku = c.getColumnIndex("sku");
+                int quantity = c.getColumnIndex("quantity");
+                int supplier = c.getColumnIndex("supplier");
+                int unit = c.getColumnIndex("unit");
+                int buyrate=c.getColumnIndex("buyrate");
+
+                c.moveToFirst();
+
+                while (!c.isAfterLast()) {
+                    //Log.i("name", c.getString(name));
+                    //Log.i("sku", c.getString(sku));
+                    productname.add(c.getString(name));
+                    productcategory.add(c.getString(category));
+                    productsubcategory.add(c.getString(subcategory));
+                    productbrand.add(c.getString(brand));
+                    productmrp.add(Float.toString(c.getFloat(mrp)));
+                    productsku.add(Integer.toString(c.getInt(sku)));
+                    productsupplier.add(c.getString(supplier));
+                    productunit.add(Integer.toString(c.getInt(unit)));
+                    productbuyrate.add(Float.toString(c.getFloat(buyrate)));
+
+                    productquantity.add("1");
+                    total += c.getFloat(mrp);
+                    String newitem = c.getString(name) +"  1   "+  Float.toString(c.getFloat(mrp));
+                    productlist.add(newitem);
+                    arrayAdapter.notifyDataSetChanged();
+                    c.moveToNext();
+                }
+
+            } catch (Exception e) {
+                Toast.makeText(getActivity(),"not scanned",Toast.LENGTH_SHORT).show();
+                Log.i("Exception", e.getMessage());
+            }
+        }
+
+    }
+
+
     public View onCreateView(@NonNull LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         View v = inflater.inflate(R.layout.fragment_billing, container, false);
-        textView = v.findViewById(R.id.txtView);
+
+
+        //textView = v.findViewById(R.id.txtView);
 
         productlist = new ArrayList<String>();
         billing = v.findViewById(R.id.billinglist);
@@ -80,7 +164,7 @@ public class BillingFragment extends Fragment {
 
 
                 }
-                // Intent intent=new Intent(Billing.this, dev.ishmin.srpos.payment.class);
+                 //Intent intent=new Intent(bi.this, dev.ishmin.srpos.payment.class);
                 //startActivity(intent);
             }
         });
@@ -104,84 +188,12 @@ public class BillingFragment extends Fragment {
                 Intent i = new Intent(getActivity(), ScannerActivity.class); //open scanner
                 startActivity(i);
 
-                sku = textView.getText().toString();
-
-                if(productsku.contains(sku))
-                {
-                    index = productsku.indexOf(sku);
-
-                    String tempmrp=productmrp.get(index);
-                    float tempMRP=Float.parseFloat(tempmrp.trim());
-                    total+=tempMRP;
-                    String tempname=productname.get(index);
-
-                    String tempquantity=productquantity.get(index);
-                    int quantity=Integer.parseInt(tempquantity.trim());
-                    quantity++;
-                    productquantity.set(index,Integer.toString(quantity));
-
-                    tempMRP*=quantity;
-
-                    String update = tempname + "  "+quantity+"  " + Float.toString(tempMRP);
-
-                   /* String tempproduct=productlist.get(index);
-                    String[] split= tempproduct.split("\\s");
-                    Log.i("splitting",split[1]);
-                    tempMRP+=Integer.parseInt(split[1]);
-                    String update=split[0]+(Float.toString(tempMRP));*/
-
-                    productlist.set(index,update);
-                    arrayAdapter.notifyDataSetChanged();
-                }
-                else
-                {
-                       /* String myUrl = "http://smartretailpos.pe.hu/api/products.php?sku=" + sku;
-                        String returned;
-                        Connection connection = new Connection();
-                        returned = connection.execute(myUrl).get();*/
-                    try {
-                        Cursor c = MainActivity.SRPOS.rawQuery("SELECT * FROM Products WHERE sku="+sku, null);
-                        int name = c.getColumnIndex("name");
-                        int category = c.getColumnIndex("category");
-                        int subcategory = c.getColumnIndex("subcategory");
-                        int brand = c.getColumnIndex("brand");
-                        int mrp = c.getColumnIndex("mrp");
-                        int sku = c.getColumnIndex("sku");
-                        int quantity = c.getColumnIndex("quantity");
-                        int supplier = c.getColumnIndex("supplier");
-                        int unit = c.getColumnIndex("unit");
-                        int buyrate=c.getColumnIndex("buyrate");
-
-                        c.moveToFirst();
-
-                        while (!c.isAfterLast()) {
-                            //Log.i("name", c.getString(name));
-                            //Log.i("sku", c.getString(sku));
-                            productname.add(c.getString(name));
-                            productcategory.add(c.getString(category));
-                            productsubcategory.add(c.getString(subcategory));
-                            productbrand.add(c.getString(brand));
-                            productmrp.add(Float.toString(c.getFloat(mrp)));
-                            productsku.add(Integer.toString(c.getInt(sku)));
-                            productsupplier.add(c.getString(supplier));
-                            productunit.add(Integer.toString(c.getInt(unit)));
-                            productbuyrate.add(Float.toString(c.getFloat(buyrate)));
-
-                            productquantity.add("1");
-                            total += c.getFloat(mrp);
-                            String newitem = c.getString(name) +"  1   "+  Float.toString(c.getFloat(mrp));
-                            productlist.add(newitem);
-                            arrayAdapter.notifyDataSetChanged();
-                            c.moveToNext();
-                        }
-
-                    } catch (Exception e) {
-                        Toast.makeText(getActivity(),"not scanned",Toast.LENGTH_SHORT).show();
-                        Log.i("Exception", e.getMessage());
-                    }
-                }
+                //
             }
         });
+
         return v;
     }
+
+
 }

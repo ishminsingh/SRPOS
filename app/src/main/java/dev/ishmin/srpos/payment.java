@@ -27,13 +27,14 @@ public class payment extends AppCompatActivity {
         RadioGroup radio = (RadioGroup) findViewById(R.id.radiostaus);
         int idselected= radio.getCheckedRadioButtonId();
 
-        RadioButton radioButton= (RadioButton) findViewById(idselected);
-        final String status= radioButton.getText().toString();
+         final RadioButton radioButton= (RadioButton) findViewById(idselected);
+
         Button done =findViewById(R.id.Done);
 
         done.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                 String status= (String) radioButton.getText();
                 String date = new SimpleDateFormat("yyyy-MM-dd", Locale.getDefault()).format(new Date());
                 if (cno.getText().toString().length() == 10 && discount.getText().toString().length() > 0)
                 {

@@ -24,7 +24,10 @@ public class ScannerActivity extends AppCompatActivity implements ZXingScannerVi
     }
     @Override
     public void handleResult(Result rawResult) {
-        BillingFragment.textView.setText(rawResult.getText());
+        //BillingFragment.textView.setText(rawResult.getText());
+        BillingFragment.sku=rawResult.getText();
+        BillingFragment x= new BillingFragment();
+        x.entry();
         onBackPressed();
     }
     @Override
