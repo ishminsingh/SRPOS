@@ -22,7 +22,6 @@ import dev.ishmin.srpos.MainActivity;
 import dev.ishmin.srpos.R;
 
 public class ProductsFragment extends Fragment {
-
     static String res = null;
     static String name;
     static String mrp;
@@ -34,7 +33,7 @@ public class ProductsFragment extends Fragment {
     public View onCreateView(@NonNull LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         View v = inflater.inflate(R.layout.fragment_products, container, false);
 
-
+//hello
         productlist = new ArrayList<String>();
         products = v.findViewById(R.id.productlist);
         arrayAdapter = new ArrayAdapter<String>(getActivity(), android.R.layout.simple_list_item_1, productlist);
@@ -76,8 +75,8 @@ public class ProductsFragment extends Fragment {
             @Override
             public void onTextChanged(CharSequence s, int start, int before, int count) {
                 try {
-
-                    if(!search.getText().equals(""))
+                    String see=search.getText().toString();
+                    if(!see.equals(""))
                     {
                         Cursor c = MainActivity.SRPOS.rawQuery("SELECT * FROM Products WHERE name LIKE'"+search.getText().toString()+"%'", null);
                         int name = c.getColumnIndex("name");

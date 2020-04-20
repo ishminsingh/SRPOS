@@ -31,7 +31,7 @@ public class ScannerActivity extends AppCompatActivity implements ZXingScannerVi
         BillingFragment x= new BillingFragment();
         x.entry();}
        else
-       {
+       {//hello
           PurchaseFragment.scannerresult=rawResult.getText();
            PurchaseFragment y= new PurchaseFragment();
            y.scanner();
