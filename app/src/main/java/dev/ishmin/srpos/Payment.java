@@ -24,35 +24,43 @@ public class Payment extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_billing);
+        setContentView(R.layout.activity_payment);
         Bundle bundle = getIntent().getExtras();
+
         cno =findViewById(R.id.cno);
         discount =findViewById(R.id.discout);
-        done =findViewById(R.id.Done);
-
+        done=findViewById(R.id.Done);
         radio = (RadioGroup) findViewById(R.id.radiostaus);
-
 
 
         done.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                int idselected= radio.getCheckedRadioButtonId();
-                radioButton= (RadioButton) findViewById(idselected);
-                String status= (String) radioButton.getText();
+
+
+            try {
+                int idselected = radio.getCheckedRadioButtonId();
+                radioButton = (RadioButton) findViewById(idselected);
+                String status = (String) radioButton.getText();
                 String date = new SimpleDateFormat("yyyy-MM-dd", Locale.getDefault()).format(new Date());
                 if (cno.getText().toString().length() == 10 && discount.getText().toString().length() > 0)
                 {
-                    try {
-
-                        MainActivity.SRPOS.execSQL("INSERT INTO Sales(customerno,date,billamount,discount,status)VALUES('" + Integer.parseInt(cno.getText().toString() )+ "','" + date + "','" + Billing.total + "'," + Float.parseFloat(discount.getText().toString()) + ",'" + status + "')");
+                    try
+                    {
+                        MainActivity.SRPOS.execSQL("INSERT INTO Sales(customerno,date,billamount,discount,status)VALUES('" + Integer.parseInt(cno.getText().toString()) + "','" + date + "','" + Billing.total + "'," + Float.parseFloat(discount.getText().toString()) + ",'" + status + "')");
                     } catch (Exception e)
                     {
                         e.printStackTrace();
                     }
                 }
-                else {
+                else
+                    {
                     Toast.makeText(Payment.this, "invalid entry", Toast.LENGTH_SHORT).show();
+                    }
+            }
+            catch(Exception e)
+                {
+                  e.printStackTrace();
                 }
 
             }

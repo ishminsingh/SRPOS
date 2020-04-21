@@ -32,30 +32,30 @@ public class BillingFragment extends Fragment {
     static String res = null;
     static String name;
     static String mrp;
-    List<String> productlist;
+    static List<String> productlist;
     public static ListView billing;
-    ArrayAdapter<String> arrayAdapter;
+    static ArrayAdapter<String> arrayAdapter;
      public static String sku;
      public static int flag1;
 
-    int index;
-    List<String> productname = new ArrayList<String>();
-    List<String> productcategory = new ArrayList<String>();
-    List<String> productsubcategory = new ArrayList<String>();
-    List<String> productbrand = new ArrayList<String>();
-    List<String> productbuyrate = new ArrayList<String>();
-    List<String> productmrp = new ArrayList<String>();
-    List<String> productsku = new ArrayList<String>();
-    List<String> productquantity = new ArrayList<String>();
-    List<String> productsupplier = new ArrayList<String>();
-    List<String> productunit = new ArrayList<String>();
+    static  int index;
+   static List<String> productname = new ArrayList<String>();
+    static List<String> productcategory = new ArrayList<String>();
+   static List<String> productsubcategory = new ArrayList<String>();
+    static List<String> productbrand = new ArrayList<String>();
+   static List<String> productbuyrate = new ArrayList<String>();
+   static List<String> productmrp = new ArrayList<String>();
+   static List<String> productsku = new ArrayList<String>();
+   static List<String> productquantity = new ArrayList<String>();
+   static List<String> productsupplier = new ArrayList<String>();
+    static List<String> productunit = new ArrayList<String>();
 
     static float total=0;
     Button totalbutton;
     TextView totalview;
     Button qscanner;
 
-    public  void entry()
+    public static void entry()
     {
 
         if(productsku.contains(sku))
@@ -92,7 +92,7 @@ public class BillingFragment extends Fragment {
                         Connection connection = new Connection();
                         returned = connection.execute(myUrl).get();*/
             try {
-                Cursor c = MainActivity.SRPOS.rawQuery("SELECT * FROM Products WHERE sku="+Integer.parseInt(sku), null);
+                Cursor c = MainActivity.SRPOS.rawQuery("SELECT * FROM Products1 WHERE sku="+Long.parseLong(sku), null);
                 int name = c.getColumnIndex("name");
                 int category = c.getColumnIndex("category");
                 int subcategory = c.getColumnIndex("subcategory");
@@ -114,7 +114,7 @@ public class BillingFragment extends Fragment {
                     productsubcategory.add(c.getString(subcategory));
                     productbrand.add(c.getString(brand));
                     productmrp.add(Float.toString(c.getFloat(mrp)));
-                    productsku.add(Integer.toString(c.getInt(sku)));
+                    productsku.add(Long.toString(c.getLong(sku)));
                     productsupplier.add(c.getString(supplier));
                     productunit.add(Integer.toString(c.getInt(unit)));
                     productbuyrate.add(Float.toString(c.getFloat(buyrate)));
@@ -128,7 +128,7 @@ public class BillingFragment extends Fragment {
                 }
 
             } catch (Exception e) {
-                Toast.makeText(getActivity(),"not scanned",Toast.LENGTH_SHORT).show();
+                //Toast.makeText(,"not scanned",Toast.LENGTH_SHORT).show();
                 Log.i("Exception", e.getMessage());
             }
         }
@@ -158,17 +158,23 @@ public class BillingFragment extends Fragment {
             public void onClick(View v) {
                 //payment activity.
 
+                try
+                {
                 MainActivity.SRPOS.execSQL("CREATE TABLE IF NOT EXISTS Sales(billid INTEGER PRIMARY KEY, customerno INT(10) ,date DATE,billamount FLOAT,discount FLOAT, status VARCHAR)");
                 MainActivity.SRPOS.execSQL("CREATE TABLE IF NOT EXISTS Solditems(id INTEGER PRIMARY KEY, name VARCHAR ,mrp FLOAT,  quantity INTEGER,unit VARCHAR,date DATE)");
                 String date = new SimpleDateFormat("yyyy-MM-dd", Locale.getDefault()).format(new Date());
                 for(int i =0; i<productlist.size();i++)
                 {
-                    MainActivity.SRPOS.execSQL("INSERT INTO Solditems(name,mrp,quantity,unit,date)VALUES('"+productname.get(i)+"','"+Float.parseFloat(productmrp.get(i))+"','"+Integer.parseInt(productquantity.get(i))+"',"+productunit.get(i)+",'"+date+"')");
-
+                    MainActivity.SRPOS.execSQL("INSERT INTO Solditems(name,mrp,quantity,unit,date)VALUES('"+productname.get(i)+"',"+Float.parseFloat(productmrp.get(i))+","+Integer.parseInt(productquantity.get(i))+","+productunit.get(i)+",'"+date+"')");
 
                 }
                 Intent i = new Intent(getActivity(), Payment.class); //open scanner
                 startActivity(i);
+                }
+                catch (Exception e)
+                {
+                    e.printStackTrace();
+                }
             }
         });
         totalbutton.setOnClickListener(new View.OnClickListener() {

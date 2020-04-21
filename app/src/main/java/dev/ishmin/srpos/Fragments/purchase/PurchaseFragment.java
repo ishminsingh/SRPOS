@@ -25,25 +25,26 @@ import dev.ishmin.srpos.R;
 import dev.ishmin.srpos.ScannerActivity;
 
 public class PurchaseFragment extends Fragment {
-    EditText name;
-    EditText brand;
-    EditText category;
-    EditText subcategory;
-    EditText sku;
-    EditText buyrate;
-    EditText mrp;
-    EditText units;
-    EditText quantity;
-    EditText supplier;
+   static EditText name;
+   static EditText brand;
+    static EditText category;
+    static EditText subcategory;
+     static EditText sku;
+    static EditText buyrate;
+    static EditText mrp;
+   static EditText units;
+    static EditText quantity;
+   static EditText supplier;
     Button purchase;
     public static String scannerresult;
-    int flag;
-
-    public void scanner()
+   static int flag;
+//hello
+    public static void scanner()
     {
-        try{
+        try
+        {
 
-            Cursor c = MainActivity.SRPOS.rawQuery("SELECT * FROM Products WHERE sku="+scannerresult, null);
+            Cursor c = MainActivity.SRPOS.rawQuery("SELECT * FROM Products1 WHERE sku="+Long.parseLong(scannerresult), null);
         int name2 = c.getColumnIndex("name");
         int category2 = c.getColumnIndex("category");
         int subcategory2 = c.getColumnIndex("subcategory");
@@ -59,27 +60,27 @@ public class PurchaseFragment extends Fragment {
 
         while (!c.isAfterLast()) {
 
+            Log.i("see",c.getString(name2));
             name.setText(c.getString(name2));
             category.setText(c.getString(category2));
             subcategory.setText(c.getString(subcategory2));
             brand.setText(c.getString(brand2));
             mrp.setText(Float.toString(c.getFloat(mrp2)));
-            sku.setText(Integer.toString(c.getInt(sku2)));
+            sku.setText(Long.toString(c.getInt(sku2)));
             supplier.setText(c.getString(supplier2));
-            units.setText(Integer.toString(c.getInt(unit2)));
+            units.setText(c.getString(unit2));
             buyrate.setText(Float.toString(c.getFloat(buyrate2)));
 
             c.moveToNext();
-
-
         }
 
         flag=1;
-
-    } catch (Exception e) {
-        Toast.makeText(getActivity(),"not scanned",Toast.LENGTH_SHORT).show();
+        }
+        catch (Exception e)
+        {
+      //  Toast.makeText(getActivity(),"not scanned",Toast.LENGTH_SHORT).show();
         Log.i("Exception", e.getMessage());
-    }
+         }
 
     }
 
@@ -105,8 +106,8 @@ BillingFragment.flag1=0;
         try {
 
 
-            MainActivity.SRPOS.execSQL("CREATE TABLE IF NOT EXISTS PurchasedItems(id INTEGER PRIMARY KEY, name VARCHAR ,category VARCHAR, subcategory VARCHAR, brand VARCHAR ,sku INTEGER,buyrate FLOAT,mrp FLOAT,supplier VARCHAR,unit VARCHAR,quantity INTEGER,date DATE )");
-            MainActivity.SRPOS.execSQL("CREATE TABLE IF NOT EXISTS Products(id INTEGER PRIMARY KEY, name VARCHAR ,category VARCHAR, subcategory VARCHAR, brand VARCHAR ,sku INTEGER,buyrate FLOAT,mrp FLOAT,supplier VARCHAR,unit VARCHAR,stock INTEGER)");
+            MainActivity.SRPOS.execSQL("CREATE TABLE IF NOT EXISTS PurchasedItems1(id INTEGER PRIMARY KEY, name VARCHAR ,category VARCHAR, subcategory VARCHAR, brand VARCHAR ,sku LONG,buyrate FLOAT,mrp FLOAT,supplier VARCHAR,unit VARCHAR,quantity INTEGER,date DATE )");
+            MainActivity.SRPOS.execSQL("CREATE TABLE IF NOT EXISTS Products1(id INTEGER PRIMARY KEY, name VARCHAR ,category VARCHAR, subcategory VARCHAR, brand VARCHAR ,sku LONG,buyrate FLOAT,mrp FLOAT,supplier VARCHAR,unit VARCHAR,stock INTEGER)");
 
             // MainActivity.SRPOS.execSQL("CREATE TABLE IF NOT EXISTS Purchases(purchaseid INTEGER PRIMARY KEY, supplier VARCHAR ,date DATE,purchaseamount FLOAT)");
         }
@@ -133,16 +134,24 @@ BillingFragment.flag1=0;
                     try {
 
                         String date = new SimpleDateFormat("yyyy-MM-dd", Locale.getDefault()).format(new Date());
-                        MainActivity.SRPOS.execSQL("INSERT INTO PurchasedItems(name,category,subcategory,brand,sku,buyrate, mrp,supplier,unit,quantity,date)VALUES('" + name1 + "','" + category1 + "','" + subcategory1 + "','" + brand1 + "'," + Integer.parseInt(sku1) + "," + Float.parseFloat(buyrate1) + "," +Float.parseFloat(mrp1)+ ",'" + supplier1 + "','" + units1 + "'," + Integer.parseInt(quantity1) + ",'"+date+"')");
+                        MainActivity.SRPOS.execSQL("INSERT INTO PurchasedItems1(name,category,subcategory,brand,sku,buyrate, mrp,supplier,unit,quantity,date)VALUES('" + name1 + "','" + category1 + "','" + subcategory1 + "','" + brand1 + "'," + Long.parseLong(sku1.trim()) + "," + Float.parseFloat(buyrate1) + "," +Float.parseFloat(mrp1)+ ",'" + supplier1 + "','" + units1 + "'," + Integer.parseInt(quantity1) + ",'"+date+"')");
+
                         if (flag==0)
-                            MainActivity.SRPOS.execSQL("INSERT INTO Products(name,category,subcategory,brand,sku,buyrate, mrp,supplier,unit,stock)VALUES('" + name1 + "','" + category1 + "','" + subcategory1 + "','" + brand1 + "'," +Integer.parseInt(sku1) + "," + Float.parseFloat(buyrate1) + "," + Float.parseFloat(mrp1) + ",'" + supplier1 + "','" + units1 + "'," + Integer.parseInt(quantity1)+ ")");
+                            MainActivity.SRPOS.execSQL("INSERT INTO Products1(name,category,subcategory,brand,sku,buyrate, mrp,supplier,unit,stock)VALUES('" + name1 + "','" + category1 + "','" + subcategory1 + "','" + brand1 + "'," +Long.parseLong(sku1) + "," + Float.parseFloat(buyrate1) + "," + Float.parseFloat(mrp1) + ",'" + supplier1 + "','" + units1 + "'," + Integer.parseInt(quantity1)+ ")");
+
                         else
+
                         {
-                            Cursor c = MainActivity.SRPOS.rawQuery("SELECT stock FROM Products WHERE sku="+Integer.parseInt(scannerresult), null);
+                            Cursor c = MainActivity.SRPOS.rawQuery("SELECT stock FROM Products1 WHERE sku="+Long.parseLong(scannerresult), null);
+
                             int quantity2 = c.getColumnIndex("stock");
                             int stock=c.getInt(quantity2);
                             int newstock =stock + Integer.parseInt(quantity1);
-                            MainActivity.SRPOS.execSQL("UPADTE Products SET stock= "+newstock+" WHERE sku="+Integer.parseInt(scannerresult) );
+                            c.moveToFirst();
+
+                            MainActivity.SRPOS.execSQL("INSERT INTO PurchasedItems1(name,category,subcategory,brand,sku,buyrate, mrp,supplier,unit,quantity,date)VALUES('" + name1 + "','" + category1 + "','" + subcategory1 + "','" + brand1 + "'," + Long.parseLong(sku1) + "," + Float.parseFloat(buyrate1) + "," +Float.parseFloat(mrp1)+ ",'" + supplier1 + "','" + units1 + "'," + Integer.parseInt(quantity1) + ",'"+date+"')");
+                            MainActivity.SRPOS.execSQL("UPDATE Products1 SET stock= "+newstock+" WHERE sku="+Long.parseLong(scannerresult) );
+                            flag=0;
                         }
                          Toast.makeText(getActivity(),"Done",Toast.LENGTH_SHORT).show();
 
@@ -150,8 +159,9 @@ BillingFragment.flag1=0;
                     catch (Exception e)
                     {
                         e.printStackTrace();
+                        Toast.makeText(getActivity(),"Invalid entry",Toast.LENGTH_SHORT).show();
                     }
-                    flag=0;
+
                 }
 
             }

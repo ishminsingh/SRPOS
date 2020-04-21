@@ -26,16 +26,22 @@ public class ScannerActivity extends AppCompatActivity implements ZXingScannerVi
     @Override
     public void handleResult(Result rawResult) {
         //BillingFragment.textView.setText(rawResult.getText());
-       if(BillingFragment.flag1==1)
-       {BillingFragment.sku=rawResult.getText();
-        BillingFragment x= new BillingFragment();
-        x.entry();}
+      try{ if(BillingFragment.flag1==1)
+       {
+           BillingFragment.sku=rawResult.getText().toString();
+       // BillingFragment x= new BillingFragment();
+        BillingFragment.entry();
+       }
        else
        {//hello
-          PurchaseFragment.scannerresult=rawResult.getText();
-           PurchaseFragment y= new PurchaseFragment();
-           y.scanner();
+          PurchaseFragment.scannerresult=rawResult.getText().toString();
+           PurchaseFragment.scanner();
        }
+      }
+      catch (Exception e)
+      {
+          e.printStackTrace();
+      }
         onBackPressed();
     }
     @Override

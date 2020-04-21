@@ -4,6 +4,7 @@ import android.database.Cursor;
 import android.os.Bundle;
 import android.text.Editable;
 import android.text.TextWatcher;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -30,6 +31,7 @@ public class ProductsFragment extends Fragment {
     ListView products;
     ArrayAdapter<String> arrayAdapter;
 
+
     public View onCreateView(@NonNull LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         View v = inflater.inflate(R.layout.fragment_products, container, false);
 
@@ -40,23 +42,24 @@ public class ProductsFragment extends Fragment {
         products.setAdapter(arrayAdapter);
         final EditText search = v.findViewById(R.id.search);
 
-        try
 
-        {
-            Cursor c = MainActivity.SRPOS.rawQuery("SELECT * FROM Products ", null);
+        try {
+            Cursor c = MainActivity.SRPOS.rawQuery("SELECT name,brand,stock FROM Products1 ", null);
             int name = c.getColumnIndex("name");
 
             int brand = c.getColumnIndex("brand");
             int stock = c.getColumnIndex("stock");
+
             c.moveToFirst();
 
-            while (!c.isAfterLast()) {
-                //Log.i("name", c.getString(name));
-                //Log.i("sku", c.getString(sku));
-                String newitem=c.getString(name)+"     "+c.getString(brand)+"     "+c.getInt(stock);
+            while (!c.isAfterLast())
+            {
+                Log.i("name", c.getString(name));
+                Log.i("brand", c.getString(brand));
+                String newitem=c.getString(name)+"     "+c.getString(brand)+"     "+Integer.toString(c.getInt(stock));
                 productlist.add(newitem);
                 arrayAdapter.notifyDataSetChanged();
-
+                c.moveToNext();
             }
         }
         catch (Exception e)
@@ -64,6 +67,7 @@ public class ProductsFragment extends Fragment {
             e.printStackTrace();
 
         }
+
 
 
         search.addTextChangedListener(new TextWatcher() {
@@ -75,10 +79,12 @@ public class ProductsFragment extends Fragment {
             @Override
             public void onTextChanged(CharSequence s, int start, int before, int count) {
                 try {
+
+                    productlist.clear();
                     String see=search.getText().toString();
                     if(!see.equals(""))
                     {
-                        Cursor c = MainActivity.SRPOS.rawQuery("SELECT * FROM Products WHERE name LIKE'"+search.getText().toString()+"%'", null);
+                        Cursor c = MainActivity.SRPOS.rawQuery("SELECT * FROM Products1 WHERE name LIKE'"+search.getText().toString()+"%'", null);
                         int name = c.getColumnIndex("name");
 
                         int brand = c.getColumnIndex("brand");
@@ -90,12 +96,14 @@ public class ProductsFragment extends Fragment {
                             String newitem=c.getString(name)+"     "+c.getString(brand)+"     "+c.getInt(stock);
                             productlist.add(newitem);
                             arrayAdapter.notifyDataSetChanged();
+                            c.moveToNext();
 
                         }
                     }
                     else
                     {
-                        Cursor c = MainActivity.SRPOS.rawQuery("SELECT * FROM Products ", null);
+                        productlist.clear();
+                        Cursor c = MainActivity.SRPOS.rawQuery("SELECT * FROM Products1 ", null);
                         int name = c.getColumnIndex("name");
 
                         int brand = c.getColumnIndex("brand");
@@ -107,6 +115,7 @@ public class ProductsFragment extends Fragment {
                             String newitem=c.getString(name)+"     "+c.getString(brand)+"     "+c.getInt(stock);
                             productlist.add(newitem);
                             arrayAdapter.notifyDataSetChanged();
+                            c.moveToNext();
                         }
                     }
 
